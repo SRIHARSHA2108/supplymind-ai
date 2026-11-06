@@ -14,12 +14,15 @@ import { Slider } from "@/components/ui/slider";
 import {
   Activity,
   AlertTriangle,
+  Boxes,
   Factory,
   Gauge,
   PackageOpen,
   Play,
   Sparkles,
   Truck,
+  Users,
+  Warehouse,
 } from "lucide-react";
 
 export default function CrisisPage() {
@@ -29,6 +32,7 @@ export default function CrisisPage() {
   const [transportCapacity, setTransportCapacity] = useState(74);
   const [productionAvailability, setProductionAvailability] =
     useState(88);
+  const [machineDowntime, setMachineDowntime] = useState(8);
 
   const simulation = useMemo(() => {
     const disruptionScore = Math.min(
@@ -38,7 +42,8 @@ export default function CrisisPage() {
           demandSurge * 0.45 +
           (100 - inventoryBuffer) * 0.25 +
           (100 - transportCapacity) * 0.2 +
-          (100 - productionAvailability) * 0.3
+          (100 - productionAvailability) * 0.3 +
+          machineDowntime * 0.35
       )
     );
 
@@ -81,6 +86,23 @@ export default function CrisisPage() {
       )
     );
 
+    const inventoryUnits = Math.round(400 + inventoryBuffer * 8.4);
+    const dailyDemand = Math.round(285 * (1 + demandSurge / 100));
+    const inventoryRunway = Math.max(
+      0.5,
+      Number((inventoryUnits / dailyDemand).toFixed(1))
+    );
+    const supplierCoverage = Math.max(
+      0,
+      Math.round(100 - supplierDelay * 4 - (100 - transportCapacity) * 0.15)
+    );
+    const lineOutput = Math.max(
+      0,
+      Math.round(
+        productionAvailability - productionImpact - machineDowntime * 0.35
+      )
+    );
+
     return {
       disruptionScore,
       productionImpact,
@@ -89,6 +111,11 @@ export default function CrisisPage() {
       exposure,
       dissatisfaction,
       carbonImpact,
+      inventoryUnits,
+      dailyDemand,
+      inventoryRunway,
+      supplierCoverage,
+      lineOutput,
     };
   }, [
     supplierDelay,
@@ -96,6 +123,7 @@ export default function CrisisPage() {
     demandSurge,
     transportCapacity,
     productionAvailability,
+    machineDowntime,
   ]);
 
   return (
@@ -103,17 +131,17 @@ export default function CrisisPage() {
       <div className="space-y-8">
         <div>
           <Badge className="mb-3 border-fuchsia-400/20 bg-fuchsia-400/10 text-fuchsia-700">
-            What-If Simulation Engine
+            Factory Digital Twin
           </Badge>
 
           <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Crisis Studio
+            What-if Digital Twin
           </h1>
 
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
-            Simulate disruptions before they happen, compare recovery
-            strategies, and understand operational impact before making a
-            decision.
+            Create a virtual representation of your suppliers, inventory,
+            production lines, and customers. Change one assumption and see the
+            operational impact before making a decision.
           </p>
         </div>
 
@@ -179,6 +207,15 @@ export default function CrisisPage() {
                 }
               />
 
+              <ScenarioSlider
+                label="Machine Downtime"
+                value={machineDowntime}
+                setValue={setMachineDowntime}
+                max={72}
+                suffix=" hrs"
+                icon={<Factory className="h-4 w-4 text-red-700" />}
+              />
+
               <Button className="h-12 w-full bg-gradient-to-r from-cyan-400 to-violet-500 text-black hover:opacity-90">
                 <Play className="mr-2 h-4 w-4" />
                 Run Simulation
@@ -190,7 +227,7 @@ export default function CrisisPage() {
             <CardHeader>
               <div className="flex items-center gap-2">
                 <Gauge className="h-5 w-5 text-cyan-700" />
-                <CardTitle>Projected Impact</CardTitle>
+                <CardTitle>Twin Projection</CardTitle>
               </div>
             </CardHeader>
 
@@ -254,6 +291,15 @@ export default function CrisisPage() {
                   value={`+${simulation.carbonImpact}%`}
                 />
               </div>
+
+              <TwinSnapshot
+                inventoryRunway={simulation.inventoryRunway}
+                inventoryUnits={simulation.inventoryUnits}
+                dailyDemand={simulation.dailyDemand}
+                supplierCoverage={simulation.supplierCoverage}
+                lineOutput={simulation.lineOutput}
+                fulfillment={simulation.fulfillment}
+              />
             </CardContent>
           </Card>
         </div>
@@ -261,9 +307,12 @@ export default function CrisisPage() {
         <div>
           <div className="mb-4 flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-violet-700" />
-            <h2 className="text-xl font-semibold">
-              AI Recovery Strategies
-            </h2>
+            <div>
+              <h2 className="text-xl font-semibold">Explainable Recovery Plans</h2>
+              <p className="mt-1 text-sm text-slate-600">
+                Compare actions before a manager approves the response.
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
@@ -365,6 +414,89 @@ function MetricCard({
       <p className="mt-2 text-xl font-semibold text-slate-900">
         {value}
       </p>
+    </div>
+  );
+}
+
+function TwinSnapshot({
+  inventoryRunway,
+  inventoryUnits,
+  dailyDemand,
+  supplierCoverage,
+  lineOutput,
+  fulfillment,
+}: {
+  inventoryRunway: number;
+  inventoryUnits: number;
+  dailyDemand: number;
+  supplierCoverage: number;
+  lineOutput: number;
+  fulfillment: number;
+}) {
+  const nodes = [
+    {
+      label: "Supplier A",
+      value: `${supplierCoverage}% covered`,
+      icon: Boxes,
+      tone: supplierCoverage < 60 ? "text-red-700 bg-red-500/10" : "text-amber-700 bg-amber-500/10",
+    },
+    {
+      label: "Factory",
+      value: `${lineOutput}% output`,
+      icon: Factory,
+      tone: lineOutput < 60 ? "text-red-700 bg-red-500/10" : "text-cyan-700 bg-cyan-500/10",
+    },
+    {
+      label: "Customers",
+      value: `${fulfillment}% filled`,
+      icon: Users,
+      tone: fulfillment < 70 ? "text-amber-700 bg-amber-500/10" : "text-emerald-700 bg-emerald-500/10",
+    },
+  ];
+
+  return (
+    <div className="mt-6 rounded-2xl border border-violet-500/20 bg-white/80 p-4 sm:p-5">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="text-xs uppercase tracking-wider text-violet-700">
+            Live twin state
+          </p>
+          <p className="mt-1 text-sm text-slate-600">
+            Inventory and flow health under the current scenario.
+          </p>
+        </div>
+        <p className="text-sm font-semibold text-slate-900">
+          {inventoryRunway} days of runway
+        </p>
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        {nodes.map((node) => {
+          const Icon = node.icon;
+
+          return (
+            <div
+              key={node.label}
+              className="flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 p-3"
+            >
+              <div className={`rounded-lg p-2 ${node.tone}`}>
+                <Icon className="h-4 w-4" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs text-slate-500">{node.label}</p>
+                <p className="truncate text-sm font-medium text-slate-900">
+                  {node.value}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-3 flex items-center gap-2 text-xs text-slate-500">
+        <Warehouse className="h-3.5 w-3.5" />
+        {inventoryUnits.toLocaleString()} units available · {dailyDemand.toLocaleString()} units/day demand
+      </div>
     </div>
   );
 }
