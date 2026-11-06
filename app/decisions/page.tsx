@@ -75,7 +75,7 @@ export default function DecisionsPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-violet-400/20 bg-violet-400/10 text-violet-300">
+          <Badge className="mb-3 border-violet-400/20 bg-violet-400/10 text-violet-700">
             Human-in-the-Loop Intelligence
           </Badge>
 
@@ -83,7 +83,7 @@ export default function DecisionsPage() {
             Decision Hub
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Track what the AI recommended, what humans decided, what actually
             happened, and how each outcome improves future decisions.
           </p>
@@ -97,7 +97,7 @@ export default function DecisionsPage() {
         </div>
 
         <Tabs defaultValue="recommended" className="space-y-5">
-          <TabsList className="border border-white/10 bg-[#0B1225]">
+          <TabsList className="border border-slate-200 bg-white">
             <TabsTrigger value="recommended">
               Recommended Decisions
             </TabsTrigger>
@@ -111,52 +111,52 @@ export default function DecisionsPage() {
             {recommendations.map((item, index) => (
               <Card
                 key={item.title}
-                className="border-white/10 bg-[#0B1225]"
+                className="border-slate-200 bg-white"
               >
                 <CardContent className="p-6">
                   <div className="grid gap-6 xl:grid-cols-[1fr_300px]">
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
-                        <Sparkles className="h-5 w-5 text-violet-300" />
+                        <Sparkles className="h-5 w-5 text-violet-700" />
 
-                        <h2 className="text-lg font-semibold text-white">
+                        <h2 className="text-lg font-semibold text-slate-900">
                           {item.title}
                         </h2>
 
-                        <Badge className="bg-cyan-400/10 text-cyan-300">
+                        <Badge className="bg-cyan-400/10 text-cyan-700">
                           {item.category}
                         </Badge>
                       </div>
 
                       <div className="mt-6 grid gap-4 md:grid-cols-2">
-                        <div className="rounded-xl bg-white/[0.03] p-4">
+                        <div className="rounded-xl bg-slate-50 p-4">
                           <p className="text-xs text-slate-500">
                             Predicted Impact
                           </p>
 
-                          <p className="mt-2 text-sm text-white">
+                          <p className="mt-2 text-sm text-slate-900">
                             {item.impact}
                           </p>
                         </div>
 
-                        <div className="rounded-xl bg-white/[0.03] p-4">
+                        <div className="rounded-xl bg-slate-50 p-4">
                           <p className="text-xs text-slate-500">
                             AI Confidence
                           </p>
 
-                          <p className="mt-2 text-sm text-white">
+                          <p className="mt-2 text-sm text-slate-900">
                             {item.confidence}
                           </p>
                         </div>
                       </div>
 
                       {status[index] && (
-                        <div className="mt-4 rounded-xl border border-white/5 bg-white/[0.03] p-4">
+                        <div className="mt-4 rounded-xl border border-slate-100 bg-slate-50 p-4">
                           <p className="text-xs text-slate-500">
                             Current Human Decision
                           </p>
 
-                          <p className="mt-2 font-medium text-white">
+                          <p className="mt-2 font-medium text-slate-900">
                             {status[index]}
                           </p>
                         </div>
@@ -175,7 +175,7 @@ export default function DecisionsPage() {
                       <Button
                         onClick={() => updateDecision(index, "Rejected")}
                         variant="outline"
-                        className="border-red-400/20 bg-red-400/5 text-red-300"
+                        className="border-red-400/20 bg-red-400/5 text-red-700"
                       >
                         <XCircle className="mr-2 h-4 w-4" />
                         Reject
@@ -184,7 +184,7 @@ export default function DecisionsPage() {
                       <Button
                         onClick={() => updateDecision(index, "Simulation Requested")}
                         variant="outline"
-                        className="border-white/10 bg-white/5 text-white"
+                        className="border-slate-200 bg-slate-100 text-slate-900"
                       >
                         <FlaskConical className="mr-2 h-4 w-4" />
                         Simulate
@@ -197,10 +197,10 @@ export default function DecisionsPage() {
           </TabsContent>
 
           <TabsContent value="history">
-            <Card className="border-white/10 bg-[#0B1225]">
+            <Card className="border-slate-200 bg-white">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <History className="h-5 w-5 text-cyan-300" />
+                  <History className="h-5 w-5 text-cyan-700" />
                   <CardTitle>Decision History</CardTitle>
                 </div>
               </CardHeader>
@@ -209,7 +209,7 @@ export default function DecisionsPage() {
                 {history.map((item) => (
                   <div
                     key={item.recommendation}
-                    className="rounded-2xl border border-white/5 bg-white/[0.02] p-5"
+                    className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5"
                   >
                     <div className="grid gap-4 md:grid-cols-5">
                       <HistoryItem
@@ -244,10 +244,10 @@ export default function DecisionsPage() {
           </TabsContent>
         </Tabs>
 
-        <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-[#0B1225] to-cyan-400/5">
+        <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-white to-cyan-400/5">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <BrainCircuit className="h-5 w-5 text-violet-300" />
+              <BrainCircuit className="h-5 w-5 text-violet-700" />
               <CardTitle>Decision Learning Loop</CardTitle>
             </div>
           </CardHeader>
@@ -267,7 +267,7 @@ export default function DecisionsPage() {
               <LoopStep title="Memory Update" />
             </div>
 
-            <p className="mt-6 max-w-3xl text-sm leading-6 text-slate-400">
+            <p className="mt-6 max-w-3xl text-sm leading-6 text-slate-600">
               Every approved or rejected recommendation becomes part of
               SupplyMind&apos;s organizational memory, allowing the system to
               compare predicted outcomes against real results and improve future
@@ -288,10 +288,10 @@ function MetricCard({
   value: string;
 }) {
   return (
-    <Card className="border-white/10 bg-[#0B1225]">
+    <Card className="border-slate-200 bg-white">
       <CardContent className="p-5">
-        <p className="text-sm text-slate-400">{title}</p>
-        <p className="mt-2 text-3xl font-semibold text-white">{value}</p>
+        <p className="text-sm text-slate-600">{title}</p>
+        <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>
     </Card>
   );
@@ -307,7 +307,7 @@ function HistoryItem({
   return (
     <div>
       <p className="text-xs text-slate-500">{label}</p>
-      <p className="mt-2 text-sm font-medium leading-5 text-white">
+      <p className="mt-2 text-sm font-medium leading-5 text-slate-900">
         {value}
       </p>
     </div>
@@ -320,8 +320,8 @@ function LoopStep({
   title: string;
 }) {
   return (
-    <div className="flex min-h-24 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] p-4 text-center">
-      <p className="text-sm font-medium text-white">{title}</p>
+    <div className="flex min-h-24 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-4 text-center">
+      <p className="text-sm font-medium text-slate-900">{title}</p>
     </div>
   );
 }
@@ -329,7 +329,7 @@ function LoopStep({
 function LoopArrow() {
   return (
     <div className="hidden items-center justify-center md:flex">
-      <ArrowRight className="h-5 w-5 text-cyan-300" />
+      <ArrowRight className="h-5 w-5 text-cyan-700" />
     </div>
   );
 }

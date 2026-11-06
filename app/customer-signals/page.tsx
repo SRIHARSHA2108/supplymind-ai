@@ -63,7 +63,7 @@ export default function CustomerSignalsPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-700">
             Voice-of-Customer Intelligence
           </Badge>
 
@@ -71,7 +71,7 @@ export default function CustomerSignalsPage() {
             Customer Signals Intelligence
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Turn customer conversations into operational early warnings by
             connecting complaints, sentiment, and service patterns to upstream
             supply-chain problems.
@@ -86,10 +86,10 @@ export default function CustomerSignalsPage() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-cyan-300" />
+                <TrendingUp className="h-5 w-5 text-cyan-700" />
                 <CardTitle>Customer Issue Trends</CardTitle>
               </div>
             </CardHeader>
@@ -98,14 +98,14 @@ export default function CustomerSignalsPage() {
               <div className="h-[330px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis dataKey="week" stroke="#64748b" />
                     <YAxis stroke="#64748b" />
 
                     <Tooltip
                       contentStyle={{
-                        background: "#0B1225",
-                        border: "1px solid #1f2937",
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
                         borderRadius: 12,
                       }}
                     />
@@ -142,13 +142,13 @@ export default function CustomerSignalsPage() {
           <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-cyan-400/5">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-violet-300" />
+                <Sparkles className="h-5 w-5 text-violet-700" />
                 <CardTitle>AI Operational Insight</CardTitle>
               </div>
             </CardHeader>
 
             <CardContent>
-              <p className="text-sm leading-7 text-slate-300">
+              <p className="text-sm leading-7 text-slate-700">
                 Late-delivery complaints increased by 38% this week and show a
                 strong operational correlation with congestion at Distribution
                 Hub 3.
@@ -156,23 +156,23 @@ export default function CustomerSignalsPage() {
 
               <div className="mt-6 rounded-xl border border-red-500/10 bg-red-500/5 p-4">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-red-300" />
-                  <p className="text-xs uppercase tracking-wider text-red-300">
+                  <AlertTriangle className="h-4 w-4 text-red-700" />
+                  <p className="text-xs uppercase tracking-wider text-red-700">
                     Emerging Risk
                   </p>
                 </div>
 
-                <p className="mt-2 text-sm text-slate-300">
+                <p className="mt-2 text-sm text-slate-700">
                   Distribution Hub 3 congestion may begin affecting priority
                   customers within 48 hours.
                 </p>
               </div>
 
-              <div className="mt-4 rounded-xl bg-white/[0.03] p-4">
+              <div className="mt-4 rounded-xl bg-slate-50 p-4">
                 <p className="text-xs text-slate-500">
                   Operational Correlation
                 </p>
-                <p className="mt-2 text-3xl font-semibold text-cyan-300">67%</p>
+                <p className="mt-2 text-3xl font-semibold text-cyan-700">67%</p>
               </div>
 
               <Button className="mt-6 w-full bg-cyan-400 text-black hover:bg-cyan-300">
@@ -187,18 +187,18 @@ export default function CustomerSignalsPage() {
             {calls.map((call) => (
               <Card
                 key={call.id}
-                className="border-white/10 bg-[#0B1225]"
+                className="border-slate-200 bg-white"
               >
                 <CardContent className="p-6">
                   <div className="flex gap-4">
-                    <div className="rounded-xl bg-cyan-400/10 p-3 text-cyan-300">
+                    <div className="rounded-xl bg-cyan-400/10 p-3 text-cyan-700">
                       <PhoneCall className="h-5 w-5" />
                     </div>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center justify-between gap-3">
                         <div>
-                          <p className="text-sm font-medium text-white">
+                          <p className="text-sm font-medium text-slate-900">
                             {call.id}
                           </p>
 
@@ -207,15 +207,15 @@ export default function CustomerSignalsPage() {
                           </p>
                         </div>
 
-                        <Badge className="bg-red-500/10 text-red-300">
+                        <Badge className="bg-red-500/10 text-red-700">
                           {call.sentiment}
                         </Badge>
                       </div>
 
-                      <div className="mt-5 rounded-xl border border-white/5 bg-white/[0.03] p-4">
+                      <div className="mt-5 rounded-xl border border-slate-100 bg-slate-50 p-4">
                         <MessageSquareText className="mb-3 h-4 w-4 text-slate-500" />
 
-                        <p className="text-sm leading-6 text-slate-300">
+                        <p className="text-sm leading-6 text-slate-700">
                           “{call.text}”
                         </p>
                       </div>
@@ -242,7 +242,7 @@ export default function CustomerSignalsPage() {
             <Card className="border-cyan-500/20 bg-cyan-500/5">
               <CardHeader>
                 <div className="flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-cyan-300" />
+                  <Activity className="h-5 w-5 text-cyan-700" />
                   <CardTitle className="text-base">
                     Customer Echo Score
                   </CardTitle>
@@ -250,22 +250,22 @@ export default function CustomerSignalsPage() {
               </CardHeader>
 
               <CardContent>
-                <div className="text-5xl font-semibold text-cyan-300">
+                <div className="text-5xl font-semibold text-cyan-700">
                   81
                 </div>
 
-                <p className="mt-3 text-sm leading-6 text-slate-400">
+                <p className="mt-3 text-sm leading-6 text-slate-600">
                   Measures how strongly customer complaints reflect an upstream
                   operational problem.
                 </p>
 
-                <div className="mt-5 h-2 overflow-hidden rounded-full bg-white/5">
+                <div className="mt-5 h-2 overflow-hidden rounded-full bg-slate-100">
                   <div className="h-full w-[81%] rounded-full bg-cyan-400" />
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="border-white/10 bg-[#0B1225]">
+            <Card className="border-slate-200 bg-white">
               <CardHeader>
                 <CardTitle className="text-base">Top Signal Sources</CardTitle>
               </CardHeader>
@@ -293,10 +293,10 @@ function MetricCard({
   value: string;
 }) {
   return (
-    <Card className="border-white/10 bg-[#0B1225]">
+    <Card className="border-slate-200 bg-white">
       <CardContent className="p-5">
-        <p className="text-sm text-slate-400">{title}</p>
-        <p className="mt-2 text-3xl font-semibold text-white">{value}</p>
+        <p className="text-sm text-slate-600">{title}</p>
+        <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>
     </Card>
   );
@@ -310,9 +310,9 @@ function SmallMetric({
   value: string;
 }) {
   return (
-    <div className="rounded-xl bg-white/[0.03] p-3">
+    <div className="rounded-xl bg-slate-50 p-3">
       <p className="text-xs text-slate-500">{title}</p>
-      <p className="mt-1 text-sm font-medium text-white">{value}</p>
+      <p className="mt-1 text-sm font-medium text-slate-900">{value}</p>
     </div>
   );
 }
@@ -326,8 +326,8 @@ function SignalRow({
 }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-slate-400">{label}</span>
-      <span className="font-medium text-white">{value}</span>
+      <span className="text-slate-600">{label}</span>
+      <span className="font-medium text-slate-900">{value}</span>
     </div>
   );
 }

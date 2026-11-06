@@ -65,30 +65,30 @@ const nodes = [
 
 function getSeverityClasses(severity: string) {
   if (severity === "Critical") {
-    return "bg-red-500/10 text-red-300 border-red-500/20";
+    return "bg-red-500/10 text-red-700 border-red-500/20";
   }
 
   if (severity === "High") {
-    return "bg-orange-500/10 text-orange-300 border-orange-500/20";
+    return "bg-orange-500/10 text-orange-700 border-orange-500/20";
   }
 
   if (severity === "Medium") {
-    return "bg-amber-500/10 text-amber-300 border-amber-500/20";
+    return "bg-amber-500/10 text-amber-700 border-amber-500/20";
   }
 
-  return "bg-emerald-500/10 text-emerald-300 border-emerald-500/20";
+  return "bg-emerald-500/10 text-emerald-700 border-emerald-500/20";
 }
 
 function getNodeClasses(status: string) {
   if (status === "critical") {
-    return "border-red-500/40 bg-red-500/10 text-red-300 shadow-[0_0_30px_rgba(239,68,68,0.15)]";
+    return "border-red-500/40 bg-red-500/10 text-red-700 shadow-[0_0_30px_rgba(239,68,68,0.15)]";
   }
 
   if (status === "warning") {
-    return "border-amber-500/30 bg-amber-500/10 text-amber-300";
+    return "border-amber-500/30 bg-amber-500/10 text-amber-700";
   }
 
-  return "border-emerald-500/20 bg-emerald-500/10 text-emerald-300";
+  return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700";
 }
 
 export default function RiskPage() {
@@ -96,7 +96,7 @@ export default function RiskPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-red-400/20 bg-red-400/10 text-red-300">
+          <Badge className="mb-3 border-red-400/20 bg-red-400/10 text-red-700">
             Predictive Risk Engine
           </Badge>
 
@@ -104,16 +104,16 @@ export default function RiskPage() {
             Risk Intelligence
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Predict, detect, and prioritize supply-chain disruptions before
             they affect production, logistics, or customers.
           </p>
         </div>
 
-        <Card className="border-white/10 bg-[#0B1225]">
+        <Card className="border-slate-200 bg-white">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <ShieldAlert className="h-5 w-5 text-cyan-300" />
+              <ShieldAlert className="h-5 w-5 text-cyan-700" />
               <CardTitle>Live Supply Chain Risk Map</CardTitle>
             </div>
           </CardHeader>
@@ -130,11 +130,11 @@ export default function RiskPage() {
                         node.status
                       )}`}
                     >
-                      <div className="mb-3 rounded-xl bg-black/20 p-3">
+                      <div className="mb-3 rounded-xl bg-slate-50 p-3">
                         <Icon className="h-6 w-6" />
                       </div>
 
-                      <p className="text-sm font-medium text-white">
+                      <p className="text-sm font-medium text-slate-900">
                         {node.name}
                       </p>
 
@@ -156,29 +156,29 @@ export default function RiskPage() {
         <div className="grid gap-4 md:grid-cols-4">
           <Card className="border-red-500/20 bg-red-500/5">
             <CardContent className="p-5">
-              <p className="text-sm text-slate-400">Critical Risks</p>
-              <p className="mt-2 text-3xl font-semibold text-red-300">1</p>
+              <p className="text-sm text-slate-600">Critical Risks</p>
+              <p className="mt-2 text-3xl font-semibold text-red-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-orange-500/20 bg-orange-500/5">
             <CardContent className="p-5">
-              <p className="text-sm text-slate-400">High Risks</p>
-              <p className="mt-2 text-3xl font-semibold text-orange-300">1</p>
+              <p className="text-sm text-slate-600">High Risks</p>
+              <p className="mt-2 text-3xl font-semibold text-orange-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-amber-500/20 bg-amber-500/5">
             <CardContent className="p-5">
-              <p className="text-sm text-slate-400">Medium Risks</p>
-              <p className="mt-2 text-3xl font-semibold text-amber-300">1</p>
+              <p className="text-sm text-slate-600">Medium Risks</p>
+              <p className="mt-2 text-3xl font-semibold text-amber-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-emerald-500/20 bg-emerald-500/5">
             <CardContent className="p-5">
-              <p className="text-sm text-slate-400">Low Risks</p>
-              <p className="mt-2 text-3xl font-semibold text-emerald-300">1</p>
+              <p className="text-sm text-slate-600">Low Risks</p>
+              <p className="mt-2 text-3xl font-semibold text-emerald-700">1</p>
             </CardContent>
           </Card>
         </div>
@@ -187,15 +187,15 @@ export default function RiskPage() {
           {risks.map((risk) => (
             <Card
               key={risk.title}
-              className="border-white/10 bg-[#0B1225]"
+              className="border-slate-200 bg-white"
             >
               <CardContent className="p-6">
                 <div className="grid gap-6 xl:grid-cols-[1fr_220px]">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
-                      <AlertTriangle className="h-5 w-5 text-amber-300" />
+                      <AlertTriangle className="h-5 w-5 text-amber-700" />
 
-                      <h2 className="text-lg font-semibold text-white">
+                      <h2 className="text-lg font-semibold text-slate-900">
                         {risk.title}
                       </h2>
 
@@ -207,46 +207,46 @@ export default function RiskPage() {
                     </div>
 
                     <div className="mt-6 grid gap-4 md:grid-cols-3">
-                      <div className="rounded-xl bg-white/[0.03] p-4">
+                      <div className="rounded-xl bg-slate-50 p-4">
                         <p className="text-xs text-slate-500">
                           Business Impact
                         </p>
-                        <p className="mt-2 text-sm text-white">
+                        <p className="mt-2 text-sm text-slate-900">
                           {risk.impact}
                         </p>
                       </div>
 
-                      <div className="rounded-xl bg-white/[0.03] p-4">
+                      <div className="rounded-xl bg-slate-50 p-4">
                         <p className="text-xs text-slate-500">
                           Financial Exposure
                         </p>
-                        <p className="mt-2 text-sm text-white">
+                        <p className="mt-2 text-sm text-slate-900">
                           {risk.financial}
                         </p>
                       </div>
 
-                      <div className="rounded-xl bg-white/[0.03] p-4">
+                      <div className="rounded-xl bg-slate-50 p-4">
                         <p className="text-xs text-slate-500">
                           AI Confidence
                         </p>
-                        <p className="mt-2 text-sm text-white">
+                        <p className="mt-2 text-sm text-slate-900">
                           {risk.confidence}
                         </p>
                       </div>
                     </div>
 
                     <div className="mt-4 rounded-xl border border-cyan-400/10 bg-cyan-400/5 p-4">
-                      <p className="text-xs font-medium uppercase tracking-wider text-cyan-300">
+                      <p className="text-xs font-medium uppercase tracking-wider text-cyan-700">
                         Recommended Action
                       </p>
 
-                      <p className="mt-2 text-sm leading-6 text-slate-300">
+                      <p className="mt-2 text-sm leading-6 text-slate-700">
                         {risk.action}
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex flex-col justify-between rounded-2xl border border-white/5 bg-white/[0.02] p-5">
+                  <div className="flex flex-col justify-between rounded-2xl border border-slate-100 bg-slate-50/60 p-5">
                     <div>
                       <p className="text-xs uppercase tracking-wider text-slate-500">
                         Risk Score
@@ -256,7 +256,7 @@ export default function RiskPage() {
                         {risk.score}
                       </p>
 
-                      <div className="mt-4 h-2 overflow-hidden rounded-full bg-white/5">
+                      <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
                         <div
                           className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-violet-500"
                           style={{ width: `${risk.score}%` }}

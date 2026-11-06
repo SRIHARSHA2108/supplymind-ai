@@ -53,7 +53,7 @@ export default function DashboardPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-700">
             Live Intelligence
           </Badge>
 
@@ -61,7 +61,7 @@ export default function DashboardPage() {
             Command Center
           </h1>
 
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
             Real-time production and supply-chain intelligence powered by
             persistent AI memory.
           </p>
@@ -74,11 +74,11 @@ export default function DashboardPage() {
             return (
               <Card
                 key={item.label}
-                className="relative overflow-hidden border-white/10 bg-[#0B1225]"
+                className="relative overflow-hidden border-slate-200 bg-white"
               >
                 <CardContent className="p-5">
                   <div className="mb-5 flex items-center justify-between">
-                    <div className="rounded-xl bg-cyan-400/10 p-2 text-cyan-300">
+                    <div className="rounded-xl bg-cyan-400/10 p-2 text-cyan-700">
                       <Icon className="h-5 w-5" />
                     </div>
 
@@ -87,8 +87,8 @@ export default function DashboardPage() {
                     </span>
                   </div>
 
-                  <p className="text-sm text-slate-400">{item.label}</p>
-                  <p className="mt-1 font-medium text-white">{item.value}</p>
+                  <p className="text-sm text-slate-600">{item.label}</p>
+                  <p className="mt-1 font-medium text-slate-900">{item.value}</p>
                 </CardContent>
               </Card>
             );
@@ -96,7 +96,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.3fr_0.7fr]">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <CardTitle>Production Output</CardTitle>
             </CardHeader>
@@ -120,14 +120,14 @@ export default function DashboardPage() {
                       </linearGradient>
                     </defs>
 
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis dataKey="day" stroke="#64748b" />
                     <YAxis stroke="#64748b" />
 
                     <Tooltip
                       contentStyle={{
-                        background: "#0B1225",
-                        border: "1px solid #1f2937",
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
                         borderRadius: 12,
                       }}
                     />
@@ -145,7 +145,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <CardTitle>Supply Chain Resilience</CardTitle>
             </CardHeader>
@@ -155,13 +155,13 @@ export default function DashboardPage() {
                 <div className="flex h-44 w-44 items-center justify-center rounded-full border-[14px] border-cyan-400/20 shadow-[0_0_50px_rgba(34,211,238,0.12)]">
                   <div className="text-center">
                     <div className="text-5xl font-semibold">92</div>
-                    <div className="mt-1 text-sm text-slate-400">
+                    <div className="mt-1 text-sm text-slate-600">
                       Resilience Score
                     </div>
                   </div>
                 </div>
 
-                <Badge className="mt-5 bg-emerald-400/10 text-emerald-300">
+                <Badge className="mt-5 bg-emerald-400/10 text-emerald-700">
                   Strong
                 </Badge>
               </div>
@@ -170,7 +170,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-2">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <CardTitle>AI Risk Overview</CardTitle>
             </CardHeader>
@@ -179,18 +179,18 @@ export default function DashboardPage() {
               {riskItems.map((risk) => (
                 <div
                   key={risk.label}
-                  className="flex items-center justify-between rounded-xl border border-white/5 bg-white/[0.03] p-4"
+                  className="flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-4"
                 >
                   <div className="flex items-center gap-3">
-                    <AlertTriangle className="h-4 w-4 text-amber-300" />
+                    <AlertTriangle className="h-4 w-4 text-amber-700" />
 
                     <div>
-                      <p className="text-sm text-white">{risk.label}</p>
+                      <p className="text-sm text-slate-900">{risk.label}</p>
                       <p className="text-xs text-slate-500">{risk.level}</p>
                     </div>
                   </div>
 
-                  <span className="text-lg font-semibold text-white">
+                  <span className="text-lg font-semibold text-slate-900">
                     {risk.value}
                   </span>
                 </div>
@@ -201,32 +201,32 @@ export default function DashboardPage() {
           <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-cyan-400/5">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <WandSparkles className="h-5 w-5 text-violet-300" />
+                <WandSparkles className="h-5 w-5 text-violet-700" />
                 <CardTitle>AI Recommendation</CardTitle>
               </div>
             </CardHeader>
 
             <CardContent>
-              <p className="text-sm leading-7 text-slate-300">
+              <p className="text-sm leading-7 text-slate-700">
                 Shift 30% of Component X orders from Supplier A to Supplier B.
                 This may reduce the estimated delivery-delay exposure by 72%
                 while maintaining production continuity.
               </p>
 
               <div className="mt-6 grid grid-cols-3 gap-3">
-                <div className="rounded-xl bg-white/5 p-3">
+                <div className="rounded-xl bg-slate-100 p-3">
                   <p className="text-xs text-slate-500">Confidence</p>
                   <p className="mt-1 font-semibold">91%</p>
                 </div>
 
-                <div className="rounded-xl bg-white/5 p-3">
+                <div className="rounded-xl bg-slate-100 p-3">
                   <p className="text-xs text-slate-500">Recovery</p>
                   <p className="mt-1 font-semibold">2 Days</p>
                 </div>
 
-                <div className="rounded-xl bg-white/5 p-3">
+                <div className="rounded-xl bg-slate-100 p-3">
                   <p className="text-xs text-slate-500">Risk</p>
-                  <p className="mt-1 font-semibold text-emerald-300">Low</p>
+                  <p className="mt-1 font-semibold text-emerald-700">Low</p>
                 </div>
               </div>
 
@@ -237,7 +237,7 @@ export default function DashboardPage() {
 
                 <Button
                   variant="outline"
-                  className="border-white/10 bg-white/5 text-white"
+                  className="border-slate-200 bg-slate-100 text-slate-900"
                 >
                   View Impact
                 </Button>

@@ -56,7 +56,7 @@ export default function SustainabilityPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-emerald-400/20 bg-emerald-400/10 text-emerald-300">
+          <Badge className="mb-3 border-emerald-400/20 bg-emerald-400/10 text-emerald-700">
             Sustainable Supply Intelligence
           </Badge>
 
@@ -64,7 +64,7 @@ export default function SustainabilityPage() {
             Sustainability Intelligence
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Compare business decisions not only by cost and risk, but also by
             emissions, material waste, transport efficiency, and sourcing
             distance.
@@ -75,36 +75,36 @@ export default function SustainabilityPage() {
           <MetricCard
             title="Sustainability Score"
             value="78/100"
-            icon={<Leaf className="h-5 w-5 text-emerald-300" />}
+            icon={<Leaf className="h-5 w-5 text-emerald-700" />}
           />
 
           <MetricCard
             title="CO₂ Reduction"
             value="-31%"
-            icon={<Factory className="h-5 w-5 text-cyan-300" />}
+            icon={<Factory className="h-5 w-5 text-cyan-700" />}
           />
 
           <MetricCard
             title="Material Waste"
             value="-18%"
-            icon={<Recycle className="h-5 w-5 text-violet-300" />}
+            icon={<Recycle className="h-5 w-5 text-violet-700" />}
           />
 
           <MetricCard
             title="Local Sourcing"
             value="46%"
-            icon={<MapPin className="h-5 w-5 text-amber-300" />}
+            icon={<MapPin className="h-5 w-5 text-amber-700" />}
           />
 
           <MetricCard
             title="Transport Efficiency"
             value="86%"
-            icon={<Truck className="h-5 w-5 text-cyan-300" />}
+            icon={<Truck className="h-5 w-5 text-cyan-700" />}
           />
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <CardTitle>Carbon Emissions Trend</CardTitle>
             </CardHeader>
@@ -113,14 +113,14 @@ export default function SustainabilityPage() {
               <div className="h-[330px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={carbonData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis dataKey="month" stroke="#64748b" />
                     <YAxis stroke="#64748b" />
 
                     <Tooltip
                       contentStyle={{
-                        background: "#0B1225",
-                        border: "1px solid #1f2937",
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
                         borderRadius: 12,
                       }}
                     />
@@ -139,13 +139,13 @@ export default function SustainabilityPage() {
           <Card className="border-emerald-500/20 bg-gradient-to-br from-emerald-500/10 to-cyan-400/5">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-emerald-300" />
+                <Sparkles className="h-5 w-5 text-emerald-700" />
                 <CardTitle>Green Decision Insight</CardTitle>
               </div>
             </CardHeader>
 
             <CardContent>
-              <p className="text-sm leading-7 text-slate-300">
+              <p className="text-sm leading-7 text-slate-700">
                 Shifting more Component X volume to Supplier B may reduce
                 estimated transport emissions by 61%, while increasing unit
                 cost by only 3.8%.
@@ -153,18 +153,18 @@ export default function SustainabilityPage() {
 
               <div className="mt-5 rounded-xl border border-emerald-500/10 bg-emerald-500/5 p-4">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                  <CheckCircle2 className="h-4 w-4 text-emerald-700" />
 
-                  <p className="text-xs uppercase tracking-wider text-emerald-300">
+                  <p className="text-xs uppercase tracking-wider text-emerald-700">
                     Greener Choice
                   </p>
                 </div>
 
-                <p className="mt-2 text-lg font-semibold text-white">
+                <p className="mt-2 text-lg font-semibold text-slate-900">
                   Supplier B
                 </p>
 
-                <p className="mt-2 text-sm text-slate-400">
+                <p className="mt-2 text-sm text-slate-600">
                   Lower transport emissions, shorter delivery distance, and
                   faster replenishment.
                 </p>
@@ -183,7 +183,7 @@ export default function SustainabilityPage() {
               Green Decision Comparator
             </h2>
 
-            <p className="mt-1 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-slate-600">
               Compare sourcing options across commercial and environmental
               impact.
             </p>
@@ -196,17 +196,17 @@ export default function SustainabilityPage() {
                 className={
                   supplier.name === "Supplier B"
                     ? "border-emerald-500/30 bg-emerald-500/5"
-                    : "border-white/10 bg-[#0B1225]"
+                    : "border-slate-200 bg-white"
                 }
               >
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xl font-semibold text-white">
+                    <h3 className="text-xl font-semibold text-slate-900">
                       {supplier.name}
                     </h3>
 
                     {supplier.name === "Supplier B" && (
-                      <Badge className="bg-emerald-400/10 text-emerald-300">
+                      <Badge className="bg-emerald-400/10 text-emerald-700">
                         Recommended
                       </Badge>
                     )}
@@ -226,51 +226,51 @@ export default function SustainabilityPage() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-3">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardContent className="p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Waste Reduction
               </p>
 
-              <p className="mt-2 text-4xl font-semibold text-violet-300">
+              <p className="mt-2 text-4xl font-semibold text-violet-700">
                 18%
               </p>
 
-              <p className="mt-3 text-sm leading-6 text-slate-400">
+              <p className="mt-3 text-sm leading-6 text-slate-600">
                 Estimated reduction in material waste through better demand
                 planning and procurement alignment.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardContent className="p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Transport Efficiency
               </p>
 
-              <p className="mt-2 text-4xl font-semibold text-cyan-300">
+              <p className="mt-2 text-4xl font-semibold text-cyan-700">
                 86%
               </p>
 
-              <p className="mt-3 text-sm leading-6 text-slate-400">
+              <p className="mt-3 text-sm leading-6 text-slate-600">
                 Consolidated shipments and shorter sourcing distances improve
                 fleet utilization.
               </p>
             </CardContent>
           </Card>
 
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardContent className="p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Local Sourcing
               </p>
 
-              <p className="mt-2 text-4xl font-semibold text-emerald-300">
+              <p className="mt-2 text-4xl font-semibold text-emerald-700">
                 46%
               </p>
 
-              <p className="mt-3 text-sm leading-6 text-slate-400">
+              <p className="mt-3 text-sm leading-6 text-slate-600">
                 Nearly half of current procurement volume is now sourced from
                 shorter-distance suppliers.
               </p>
@@ -292,13 +292,13 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <Card className="border-white/10 bg-[#0B1225]">
+    <Card className="border-slate-200 bg-white">
       <CardContent className="p-5">
         <div className="mb-4">{icon}</div>
 
-        <p className="text-sm text-slate-400">{title}</p>
+        <p className="text-sm text-slate-600">{title}</p>
 
-        <p className="mt-2 text-2xl font-semibold text-white">
+        <p className="mt-2 text-2xl font-semibold text-slate-900">
           {value}
         </p>
       </CardContent>
@@ -314,10 +314,10 @@ function InfoBox({
   value: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/5 bg-white/[0.03] p-4">
+    <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
       <p className="text-xs text-slate-500">{label}</p>
 
-      <p className="mt-2 text-sm font-medium text-white">
+      <p className="mt-2 text-sm font-medium text-slate-900">
         {value}
       </p>
     </div>

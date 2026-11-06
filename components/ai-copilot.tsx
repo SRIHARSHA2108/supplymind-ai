@@ -63,15 +63,15 @@ export default function AICopilot() {
 
       {open && (
         <div className="fixed inset-0 z-[100] bg-black/50">
-          <div className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-white/10 bg-[#070B16]">
-            <div className="flex items-center justify-between border-b border-white/10 p-4">
+          <div className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-slate-200 bg-white">
+            <div className="flex items-center justify-between border-b border-slate-200 p-4">
               <div className="flex items-center gap-3">
                 <div className="rounded-xl bg-violet-500/10 p-2">
-                  <Bot className="h-5 w-5 text-violet-300" />
+                  <Bot className="h-5 w-5 text-violet-700" />
                 </div>
 
                 <div>
-                  <p className="font-semibold text-white">
+                  <p className="font-semibold text-slate-900">
                     SupplyMind Copilot
                   </p>
                   <p className="text-xs text-slate-500">
@@ -83,7 +83,7 @@ export default function AICopilot() {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-2 text-slate-400 hover:bg-white/5 hover:text-white"
+                className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -96,8 +96,8 @@ export default function AICopilot() {
                     key={index}
                     className={
                       message.role === "user"
-                        ? "ml-10 rounded-2xl bg-cyan-400/10 p-3 text-sm text-slate-200"
-                        : "mr-10 rounded-2xl bg-white/5 p-3 text-sm text-slate-300"
+                        ? "ml-10 rounded-2xl bg-cyan-400/10 p-3 text-sm text-slate-700"
+                        : "mr-10 rounded-2xl bg-slate-100 p-3 text-sm text-slate-700"
                     }
                   >
                     {message.text}
@@ -120,7 +120,7 @@ export default function AICopilot() {
                     type="button"
                     key={question}
                     onClick={() => sendMessage(question)}
-                    className="block w-full rounded-xl border border-white/5 bg-white/[0.03] px-3 py-2 text-left text-xs text-slate-300 hover:bg-white/[0.06]"
+                    className="block w-full rounded-xl border border-slate-100 bg-slate-50 px-3 py-2 text-left text-xs text-slate-700 hover:bg-slate-100"
                   >
                     {question}
                   </button>
@@ -128,7 +128,7 @@ export default function AICopilot() {
               </div>
             </div>
 
-            <div className="border-t border-white/10 p-4">
+            <div className="border-t border-slate-200 p-4">
               <div className="flex gap-2">
                 <Input
                   value={input}
@@ -140,7 +140,7 @@ export default function AICopilot() {
                     }
                   }}
                   placeholder="Ask SupplyMind..."
-                  className="border-white/10 bg-white/5 text-white"
+                  className="border-slate-200 bg-slate-100 text-slate-900"
                 />
 
                 <Button

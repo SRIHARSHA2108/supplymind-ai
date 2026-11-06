@@ -70,7 +70,7 @@ export default function ForecastPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-300">
+          <Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-700">
             Predictive Demand Intelligence
           </Badge>
 
@@ -78,7 +78,7 @@ export default function ForecastPage() {
             Smart Forecast
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Forecast future demand, detect inventory pressure early, and
             generate proactive procurement actions before stockouts occur.
           </p>
@@ -92,10 +92,10 @@ export default function ForecastPage() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-cyan-300" />
+                <TrendingUp className="h-5 w-5 text-cyan-700" />
                 <CardTitle>Demand Forecast — Component X</CardTitle>
               </div>
             </CardHeader>
@@ -104,14 +104,14 @@ export default function ForecastPage() {
               <div className="h-[360px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={demandData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis dataKey="day" stroke="#64748b" />
                     <YAxis stroke="#64748b" />
 
                     <Tooltip
                       contentStyle={{
-                        background: "#0B1225",
-                        border: "1px solid #1f2937",
+                        background: "#ffffff",
+                        border: "1px solid #e2e8f0",
                         borderRadius: 12,
                       }}
                     />
@@ -141,13 +141,13 @@ export default function ForecastPage() {
           <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 to-cyan-400/5">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-violet-300" />
+                <Sparkles className="h-5 w-5 text-violet-700" />
                 <CardTitle>AI Forecast Insight</CardTitle>
               </div>
             </CardHeader>
 
             <CardContent>
-              <p className="text-sm leading-7 text-slate-300">
+              <p className="text-sm leading-7 text-slate-700">
                 Component X demand is projected to increase by approximately
                 23% over the next 14 days, driven by higher customer orders and
                 lower-than-normal downstream inventory.
@@ -155,13 +155,13 @@ export default function ForecastPage() {
 
               <div className="mt-5 rounded-xl border border-red-500/10 bg-red-500/5 p-4">
                 <div className="flex items-center gap-2">
-                  <AlertTriangle className="h-4 w-4 text-red-300" />
-                  <p className="text-xs uppercase tracking-wider text-red-300">
+                  <AlertTriangle className="h-4 w-4 text-red-700" />
+                  <p className="text-xs uppercase tracking-wider text-red-700">
                     Stockout Warning
                   </p>
                 </div>
 
-                <p className="mt-2 text-sm text-slate-300">
+                <p className="mt-2 text-sm text-slate-700">
                   Component X may fall below safety stock within 4 days.
                 </p>
               </div>
@@ -175,7 +175,7 @@ export default function ForecastPage() {
 
         <div>
           <div className="mb-4 flex items-center gap-2">
-            <PackageSearch className="h-5 w-5 text-cyan-300" />
+            <PackageSearch className="h-5 w-5 text-cyan-700" />
             <h2 className="text-xl font-semibold">
               Inventory Forecast
             </h2>
@@ -185,7 +185,7 @@ export default function ForecastPage() {
             {materials.map((item) => (
               <Card
                 key={item.name}
-                className="border-white/10 bg-[#0B1225]"
+                className="border-slate-200 bg-white"
               >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between">
@@ -194,7 +194,7 @@ export default function ForecastPage() {
                         Material
                       </p>
 
-                      <h3 className="mt-1 text-lg font-semibold text-white">
+                      <h3 className="mt-1 text-lg font-semibold text-slate-900">
                         {item.name}
                       </h3>
                     </div>
@@ -202,10 +202,10 @@ export default function ForecastPage() {
                     <Badge
                       className={
                         item.status === "Critical"
-                          ? "bg-red-500/10 text-red-300"
+                          ? "bg-red-500/10 text-red-700"
                           : item.status === "Watch"
-                          ? "bg-amber-500/10 text-amber-300"
-                          : "bg-emerald-500/10 text-emerald-300"
+                          ? "bg-amber-500/10 text-amber-700"
+                          : "bg-emerald-500/10 text-emerald-700"
                       }
                     >
                       {item.status}
@@ -229,16 +229,16 @@ export default function ForecastPage() {
                     />
                   </div>
 
-                  <div className="mt-6 rounded-2xl border border-white/5 bg-white/[0.03] p-5">
+                  <div className="mt-6 rounded-2xl border border-slate-100 bg-slate-50 p-5">
                     <div className="flex items-center gap-2">
-                      <CalendarClock className="h-5 w-5 text-violet-300" />
+                      <CalendarClock className="h-5 w-5 text-violet-700" />
 
-                      <p className="text-sm text-slate-400">
+                      <p className="text-sm text-slate-600">
                         Stockout Countdown
                       </p>
                     </div>
 
-                    <p className="mt-3 text-4xl font-semibold text-white">
+                    <p className="mt-3 text-4xl font-semibold text-slate-900">
                       {item.stockout}
                     </p>
                   </div>
@@ -260,10 +260,10 @@ function MetricCard({
   value: string;
 }) {
   return (
-    <Card className="border-white/10 bg-[#0B1225]">
+    <Card className="border-slate-200 bg-white">
       <CardContent className="p-5">
-        <p className="text-sm text-slate-400">{title}</p>
-        <p className="mt-2 text-3xl font-semibold text-white">{value}</p>
+        <p className="text-sm text-slate-600">{title}</p>
+        <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>
     </Card>
   );
@@ -279,7 +279,7 @@ function InfoRow({
   return (
     <div className="flex items-center justify-between">
       <span className="text-sm text-slate-500">{label}</span>
-      <span className="text-sm font-medium text-white">{value}</span>
+      <span className="text-sm font-medium text-slate-900">{value}</span>
     </div>
   );
 }

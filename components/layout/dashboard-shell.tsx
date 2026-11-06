@@ -8,7 +8,7 @@ export default function DashboardShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#050816] text-white">
+    <div className="min-h-screen bg-white text-slate-900">
       <div className="flex">
         <Sidebar />
 

@@ -102,7 +102,7 @@ export default function CrisisPage() {
     <DashboardShell>
       <div className="space-y-8">
         <div>
-          <Badge className="mb-3 border-fuchsia-400/20 bg-fuchsia-400/10 text-fuchsia-300">
+          <Badge className="mb-3 border-fuchsia-400/20 bg-fuchsia-400/10 text-fuchsia-700">
             What-If Simulation Engine
           </Badge>
 
@@ -110,7 +110,7 @@ export default function CrisisPage() {
             Crisis Studio
           </h1>
 
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
             Simulate disruptions before they happen, compare recovery
             strategies, and understand operational impact before making a
             decision.
@@ -118,7 +118,7 @@ export default function CrisisPage() {
         </div>
 
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
-          <Card className="border-white/10 bg-[#0B1225]">
+          <Card className="border-slate-200 bg-white">
             <CardHeader>
               <CardTitle>Scenario Controls</CardTitle>
             </CardHeader>
@@ -131,7 +131,7 @@ export default function CrisisPage() {
                 max={14}
                 suffix=" days"
                 icon={
-                  <AlertTriangle className="h-4 w-4 text-red-300" />
+                  <AlertTriangle className="h-4 w-4 text-red-700" />
                 }
               />
 
@@ -142,7 +142,7 @@ export default function CrisisPage() {
                 max={100}
                 suffix="%"
                 icon={
-                  <PackageOpen className="h-4 w-4 text-cyan-300" />
+                  <PackageOpen className="h-4 w-4 text-cyan-700" />
                 }
               />
 
@@ -153,7 +153,7 @@ export default function CrisisPage() {
                 max={100}
                 suffix="%"
                 icon={
-                  <Activity className="h-4 w-4 text-violet-300" />
+                  <Activity className="h-4 w-4 text-violet-700" />
                 }
               />
 
@@ -164,7 +164,7 @@ export default function CrisisPage() {
                 max={100}
                 suffix="%"
                 icon={
-                  <Truck className="h-4 w-4 text-amber-300" />
+                  <Truck className="h-4 w-4 text-amber-700" />
                 }
               />
 
@@ -175,7 +175,7 @@ export default function CrisisPage() {
                 max={100}
                 suffix="%"
                 icon={
-                  <Factory className="h-4 w-4 text-emerald-300" />
+                  <Factory className="h-4 w-4 text-emerald-700" />
                 }
               />
 
@@ -186,16 +186,16 @@ export default function CrisisPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-[#0B1225] to-cyan-400/5">
+          <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-white to-cyan-400/5">
             <CardHeader>
               <div className="flex items-center gap-2">
-                <Gauge className="h-5 w-5 text-cyan-300" />
+                <Gauge className="h-5 w-5 text-cyan-700" />
                 <CardTitle>Projected Impact</CardTitle>
               </div>
             </CardHeader>
 
             <CardContent>
-              <div className="mb-6 flex items-end justify-between rounded-2xl border border-white/5 bg-black/20 p-5">
+              <div className="mb-6 flex items-end justify-between rounded-2xl border border-slate-100 bg-slate-50 p-5">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-slate-500">
                     Disruption Score
@@ -209,10 +209,10 @@ export default function CrisisPage() {
                 <Badge
                   className={
                     simulation.disruptionScore >= 70
-                      ? "bg-red-500/10 text-red-300"
+                      ? "bg-red-500/10 text-red-700"
                       : simulation.disruptionScore >= 45
-                      ? "bg-amber-500/10 text-amber-300"
-                      : "bg-emerald-500/10 text-emerald-300"
+                      ? "bg-amber-500/10 text-amber-700"
+                      : "bg-emerald-500/10 text-emerald-700"
                   }
                 >
                   {simulation.disruptionScore >= 70
@@ -260,7 +260,7 @@ export default function CrisisPage() {
 
         <div>
           <div className="mb-4 flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-violet-300" />
+            <Sparkles className="h-5 w-5 text-violet-700" />
             <h2 className="text-xl font-semibold">
               AI Recovery Strategies
             </h2>
@@ -322,12 +322,12 @@ function ScenarioSlider({
         <div className="flex items-center gap-2">
           {icon}
 
-          <span className="text-sm text-slate-300">
+          <span className="text-sm text-slate-700">
             {label}
           </span>
         </div>
 
-        <span className="rounded-lg bg-white/5 px-3 py-1 text-sm font-medium text-white">
+        <span className="rounded-lg bg-slate-100 px-3 py-1 text-sm font-medium text-slate-900">
           {value}
           {suffix}
         </span>
@@ -357,12 +357,12 @@ function MetricCard({
   value: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/5 bg-white/[0.03] p-4">
+    <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
       <p className="text-xs text-slate-500">
         {title}
       </p>
 
-      <p className="mt-2 text-xl font-semibold text-white">
+      <p className="mt-2 text-xl font-semibold text-slate-900">
         {value}
       </p>
     </div>
@@ -391,7 +391,7 @@ function RecoveryCard({
       className={
         recommended
           ? "border-cyan-400/30 bg-gradient-to-br from-cyan-400/10 to-violet-500/10"
-          : "border-white/10 bg-[#0B1225]"
+          : "border-slate-200 bg-white"
       }
     >
       <CardContent className="p-6">
@@ -401,24 +401,24 @@ function RecoveryCard({
               {plan}
             </p>
 
-            <h3 className="mt-2 text-lg font-semibold text-white">
+            <h3 className="mt-2 text-lg font-semibold text-slate-900">
               {title}
             </h3>
           </div>
 
           {recommended && (
-            <Badge className="bg-cyan-400/10 text-cyan-300">
+            <Badge className="bg-cyan-400/10 text-cyan-700">
               AI Recommended
             </Badge>
           )}
         </div>
 
-        <p className="mt-4 text-sm leading-6 text-slate-400">
+        <p className="mt-4 text-sm leading-6 text-slate-600">
           {description}
         </p>
 
         <div className="mt-6 grid grid-cols-3 gap-3">
-          <div className="rounded-xl bg-white/[0.03] p-3">
+          <div className="rounded-xl bg-slate-50 p-3">
             <p className="text-xs text-slate-500">
               Recovery
             </p>
@@ -428,7 +428,7 @@ function RecoveryCard({
             </p>
           </div>
 
-          <div className="rounded-xl bg-white/[0.03] p-3">
+          <div className="rounded-xl bg-slate-50 p-3">
             <p className="text-xs text-slate-500">
               Cost
             </p>
@@ -438,7 +438,7 @@ function RecoveryCard({
             </p>
           </div>
 
-          <div className="rounded-xl bg-white/[0.03] p-3">
+          <div className="rounded-xl bg-slate-50 p-3">
             <p className="text-xs text-slate-500">
               Risk
             </p>
