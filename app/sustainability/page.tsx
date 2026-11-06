@@ -60,7 +60,7 @@ export default function SustainabilityPage() {
             Sustainable Supply Intelligence
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Sustainability Intelligence
           </h1>
 
@@ -71,7 +71,7 @@ export default function SustainabilityPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-5">
           <MetricCard
             title="Sustainability Score"
             value="78/100"
@@ -189,7 +189,7 @@ export default function SustainabilityPage() {
             </p>
           </div>
 
-          <div className="grid gap-5 xl:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-2">
             {suppliers.map((supplier) => (
               <Card
                 key={supplier.name}
@@ -199,7 +199,7 @@ export default function SustainabilityPage() {
                     : "border-slate-200 bg-white"
                 }
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-semibold text-slate-900">
                       {supplier.name}
@@ -225,9 +225,9 @@ export default function SustainabilityPage() {
           </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
           <Card className="border-slate-200 bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Waste Reduction
               </p>
@@ -244,7 +244,7 @@ export default function SustainabilityPage() {
           </Card>
 
           <Card className="border-slate-200 bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Transport Efficiency
               </p>
@@ -261,7 +261,7 @@ export default function SustainabilityPage() {
           </Card>
 
           <Card className="border-slate-200 bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-4 sm:p-6">
               <p className="text-xs uppercase tracking-wider text-slate-500">
                 Local Sourcing
               </p>
@@ -293,7 +293,7 @@ function MetricCard({
 }) {
   return (
     <Card className="border-slate-200 bg-white">
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-5">
         <div className="mb-4">{icon}</div>
 
         <p className="text-sm text-slate-600">{title}</p>

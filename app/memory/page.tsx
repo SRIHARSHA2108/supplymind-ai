@@ -106,7 +106,7 @@ export default function MemoryPage() {
             Persistent Organizational Memory
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Memory Atlas
           </h1>
 
@@ -118,7 +118,7 @@ export default function MemoryPage() {
         </div>
 
         <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-white to-cyan-400/5">
-          <CardContent className="p-6">
+          <CardContent className="p-4 sm:p-6">
             <div className="grid gap-6 xl:grid-cols-[1fr_340px]">
               <div>
                 <div className="flex items-center gap-3">
@@ -206,7 +206,7 @@ export default function MemoryPage() {
         </Card>
 
         <Card className="border-slate-200 bg-white">
-          <CardContent className="p-5">
+          <CardContent className="p-4 sm:p-5">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
 
@@ -224,7 +224,7 @@ export default function MemoryPage() {
           <div className="space-y-4">
             {loading && (
               <Card className="border-slate-200 bg-white">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex items-center gap-3 text-slate-600">
                     <div className="h-4 w-4 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
                     Loading organizational memory...
@@ -235,7 +235,7 @@ export default function MemoryPage() {
 
             {!loading && error && (
               <Card className="border-red-500/20 bg-red-500/5">
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <p className="font-medium text-red-700">
                     Failed to load memory
                   </p>
@@ -251,7 +251,7 @@ export default function MemoryPage() {
               !error &&
               filteredIncidents.length === 0 && (
                 <Card className="border-slate-200 bg-white">
-                  <CardContent className="p-6 text-slate-600">
+                  <CardContent className="p-4 text-slate-600 sm:p-6">
                     No matching incidents found.
                   </CardContent>
                 </Card>
@@ -264,7 +264,7 @@ export default function MemoryPage() {
                   key={incident.id}
                   className="border-slate-200 bg-white"
                 >
-                  <CardContent className="p-6">
+                  <CardContent className="p-4 sm:p-6">
                     <div className="flex gap-5">
                       <div className="flex flex-col items-center">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-700">
@@ -307,7 +307,7 @@ export default function MemoryPage() {
                           </Badge>
                         </div>
 
-                        <div className="mt-6 grid gap-4 md:grid-cols-2">
+                        <div className="mt-6 grid gap-4 sm:grid-cols-2">
                           <div className="rounded-xl border border-red-500/10 bg-red-500/5 p-4">
                             <div className="flex items-center gap-2">
                               <AlertTriangle className="h-4 w-4 text-red-700" />

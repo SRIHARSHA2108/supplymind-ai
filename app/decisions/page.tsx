@@ -79,7 +79,7 @@ export default function DecisionsPage() {
             Human-in-the-Loop Intelligence
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Decision Hub
           </h1>
 
@@ -89,7 +89,7 @@ export default function DecisionsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <MetricCard title="Pending Decisions" value="3" />
           <MetricCard title="Approval Rate" value="82%" />
           <MetricCard title="Prediction Accuracy" value="91%" />
@@ -97,7 +97,7 @@ export default function DecisionsPage() {
         </div>
 
         <Tabs defaultValue="recommended" className="space-y-5">
-          <TabsList className="border border-slate-200 bg-white">
+          <TabsList className="flex h-auto max-w-full flex-wrap justify-start gap-1 border border-slate-200 bg-white p-1">
             <TabsTrigger value="recommended">
               Recommended Decisions
             </TabsTrigger>
@@ -113,7 +113,7 @@ export default function DecisionsPage() {
                 key={item.title}
                 className="border-slate-200 bg-white"
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="grid gap-6 xl:grid-cols-[1fr_300px]">
                     <div>
                       <div className="flex flex-wrap items-center gap-3">
@@ -128,7 +128,7 @@ export default function DecisionsPage() {
                         </Badge>
                       </div>
 
-                      <div className="mt-6 grid gap-4 md:grid-cols-2">
+                      <div className="mt-6 grid gap-4 sm:grid-cols-2">
                         <div className="rounded-xl bg-slate-50 p-4">
                           <p className="text-xs text-slate-500">
                             Predicted Impact
@@ -211,7 +211,7 @@ export default function DecisionsPage() {
                     key={item.recommendation}
                     className="rounded-2xl border border-slate-100 bg-slate-50/60 p-5"
                   >
-                    <div className="grid gap-4 md:grid-cols-5">
+                    <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-5">
                       <HistoryItem
                         label="AI Recommendation"
                         value={item.recommendation}
@@ -289,7 +289,7 @@ function MetricCard({
 }) {
   return (
     <Card className="border-slate-200 bg-white">
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-5">
         <p className="text-sm text-slate-600">{title}</p>
         <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>

@@ -12,9 +12,18 @@ import {
   LineChart,
   Leaf,
   Sparkles,
+  Menu,
 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
-const navItems = [
+export const navItems = [
   { name: "Command Center", href: "/dashboard", icon: LayoutDashboard },
   { name: "Risk Intelligence", href: "/risk", icon: ShieldAlert },
   { name: "Memory Atlas", href: "/memory", icon: BrainCircuit },
@@ -74,5 +83,65 @@ export default function Sidebar() {
         </p>
       </div>
     </aside>
+  );
+}
+
+export function MobileNav() {
+  const pathname = usePathname();
+
+  return (
+    <Sheet>
+      <SheetTrigger
+        render={
+          <button
+            type="button"
+            aria-label="Open navigation"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-slate-100 text-slate-700 lg:hidden"
+          />
+        }
+      >
+        <Menu className="h-5 w-5" />
+      </SheetTrigger>
+
+      <SheetContent side="left" className="w-[min(20rem,calc(100vw-2rem))] border-slate-200 bg-white p-0">
+        <SheetHeader className="border-b border-slate-200 pr-14">
+          <SheetTitle className="flex items-center gap-3 text-left">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-violet-600 text-white">
+              <Sparkles className="h-4 w-4" />
+            </span>
+            SupplyMind AI
+          </SheetTitle>
+          <SheetDescription className="text-left">
+            Intelligence Cockpit
+          </SheetDescription>
+        </SheetHeader>
+
+        <nav className="space-y-1 p-4">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = pathname === item.href;
+
+            return (
+              <SheetTrigger
+                key={item.href}
+                render={
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition ${
+                      active
+                        ? "bg-cyan-400/10 text-cyan-700 ring-1 ring-cyan-400/20"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    }`}
+                  />
+                }
+              >
+                <Icon className="h-4 w-4" />
+                {item.name}
+              </SheetTrigger>
+            );
+          })}
+        </nav>
+      </SheetContent>
+    </Sheet>
   );
 }

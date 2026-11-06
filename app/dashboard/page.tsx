@@ -57,7 +57,7 @@ export default function DashboardPage() {
             Live Intelligence
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Command Center
           </h1>
 
@@ -67,7 +67,7 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-5">
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
           {chain.map((item, index) => {
             const Icon = item.icon;
 
@@ -76,7 +76,7 @@ export default function DashboardPage() {
                 key={item.label}
                 className="relative overflow-hidden border-slate-200 bg-white"
               >
-                <CardContent className="p-5">
+                <CardContent className="p-4 sm:p-5">
                   <div className="mb-5 flex items-center justify-between">
                     <div className="rounded-xl bg-cyan-400/10 p-2 text-cyan-700">
                       <Icon className="h-5 w-5" />
@@ -213,7 +213,7 @@ export default function DashboardPage() {
                 while maintaining production continuity.
               </p>
 
-              <div className="mt-6 grid grid-cols-3 gap-3">
+              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div className="rounded-xl bg-slate-100 p-3">
                   <p className="text-xs text-slate-500">Confidence</p>
                   <p className="mt-1 font-semibold">91%</p>
@@ -230,7 +230,7 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="mt-6 flex gap-3">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                 <Button className="bg-cyan-400 text-black hover:bg-cyan-300">
                   Apply Plan
                 </Button>

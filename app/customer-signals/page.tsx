@@ -67,7 +67,7 @@ export default function CustomerSignalsPage() {
             Voice-of-Customer Intelligence
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Customer Signals Intelligence
           </h1>
 
@@ -78,7 +78,7 @@ export default function CustomerSignalsPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <MetricCard title="Calls Analysed" value="1,284" />
           <MetricCard title="Negative Sentiment" value="31%" />
           <MetricCard title="Delay Complaints" value="+38%" />
@@ -189,7 +189,7 @@ export default function CustomerSignalsPage() {
                 key={call.id}
                 className="border-slate-200 bg-white"
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex gap-4">
                     <div className="rounded-xl bg-cyan-400/10 p-3 text-cyan-700">
                       <PhoneCall className="h-5 w-5" />
@@ -220,7 +220,7 @@ export default function CustomerSignalsPage() {
                         </p>
                       </div>
 
-                      <div className="mt-4 grid gap-3 md:grid-cols-3">
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-3">
                         <SmallMetric title="Detected Issue" value={call.issue} />
                         <SmallMetric
                           title="AI Confidence"
@@ -294,7 +294,7 @@ function MetricCard({
 }) {
   return (
     <Card className="border-slate-200 bg-white">
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-5">
         <p className="text-sm text-slate-600">{title}</p>
         <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>

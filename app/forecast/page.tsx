@@ -74,7 +74,7 @@ export default function ForecastPage() {
             Predictive Demand Intelligence
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Smart Forecast
           </h1>
 
@@ -84,7 +84,7 @@ export default function ForecastPage() {
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <MetricCard title="Forecast Accuracy" value="93%" />
           <MetricCard title="Demand Growth" value="+23%" />
           <MetricCard title="At-Risk Materials" value="2" />
@@ -181,13 +181,13 @@ export default function ForecastPage() {
             </h2>
           </div>
 
-          <div className="grid gap-5 xl:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {materials.map((item) => (
               <Card
                 key={item.name}
                 className="border-slate-200 bg-white"
               >
-                <CardContent className="p-6">
+                <CardContent className="p-4 sm:p-6">
                   <div className="flex items-start justify-between">
                     <div>
                       <p className="text-xs uppercase tracking-wider text-slate-500">
@@ -261,7 +261,7 @@ function MetricCard({
 }) {
   return (
     <Card className="border-slate-200 bg-white">
-      <CardContent className="p-5">
+      <CardContent className="p-4 sm:p-5">
         <p className="text-sm text-slate-600">{title}</p>
         <p className="mt-2 text-3xl font-semibold text-slate-900">{value}</p>
       </CardContent>

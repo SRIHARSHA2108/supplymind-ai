@@ -106,7 +106,7 @@ export default function CrisisPage() {
             What-If Simulation Engine
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Crisis Studio
           </h1>
 
@@ -195,7 +195,7 @@ export default function CrisisPage() {
             </CardHeader>
 
             <CardContent>
-              <div className="mb-6 flex items-end justify-between rounded-2xl border border-slate-100 bg-slate-50 p-5">
+              <div className="mb-6 flex flex-col items-start gap-4 rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:flex-row sm:items-end sm:justify-between sm:p-5">
                 <div>
                   <p className="text-xs uppercase tracking-wider text-slate-500">
                     Disruption Score
@@ -266,7 +266,7 @@ export default function CrisisPage() {
             </h2>
           </div>
 
-          <div className="grid gap-5 xl:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
             <RecoveryCard
               plan="Plan A"
               title="Switch to Alternate Supplier"
@@ -394,7 +394,7 @@ function RecoveryCard({
           : "border-slate-200 bg-white"
       }
     >
-      <CardContent className="p-6">
+      <CardContent className="p-4 sm:p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-xs uppercase tracking-wider text-slate-500">
@@ -417,7 +417,7 @@ function RecoveryCard({
           {description}
         </p>
 
-        <div className="mt-6 grid grid-cols-3 gap-3">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <div className="rounded-xl bg-slate-50 p-3">
             <p className="text-xs text-slate-500">
               Recovery

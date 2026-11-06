@@ -100,7 +100,7 @@ export default function RiskPage() {
             Predictive Risk Engine
           </Badge>
 
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Risk Intelligence
           </h1>
 
@@ -119,7 +119,7 @@ export default function RiskPage() {
           </CardHeader>
 
           <CardContent>
-            <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-6">
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
               {nodes.map((node, index) => {
                 const Icon = node.icon;
 
@@ -153,30 +153,30 @@ export default function RiskPage() {
           </CardContent>
         </Card>
 
-        <div className="grid gap-4 md:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <Card className="border-red-500/20 bg-red-500/5">
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <p className="text-sm text-slate-600">Critical Risks</p>
               <p className="mt-2 text-3xl font-semibold text-red-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-orange-500/20 bg-orange-500/5">
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <p className="text-sm text-slate-600">High Risks</p>
               <p className="mt-2 text-3xl font-semibold text-orange-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-amber-500/20 bg-amber-500/5">
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <p className="text-sm text-slate-600">Medium Risks</p>
               <p className="mt-2 text-3xl font-semibold text-amber-700">1</p>
             </CardContent>
           </Card>
 
           <Card className="border-emerald-500/20 bg-emerald-500/5">
-            <CardContent className="p-5">
+            <CardContent className="p-4 sm:p-5">
               <p className="text-sm text-slate-600">Low Risks</p>
               <p className="mt-2 text-3xl font-semibold text-emerald-700">1</p>
             </CardContent>
@@ -189,7 +189,7 @@ export default function RiskPage() {
               key={risk.title}
               className="border-slate-200 bg-white"
             >
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 <div className="grid gap-6 xl:grid-cols-[1fr_220px]">
                   <div>
                     <div className="flex flex-wrap items-center gap-3">
@@ -206,7 +206,7 @@ export default function RiskPage() {
                       </Badge>
                     </div>
 
-                    <div className="mt-6 grid gap-4 md:grid-cols-3">
+                    <div className="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                       <div className="rounded-xl bg-slate-50 p-4">
                         <p className="text-xs text-slate-500">
                           Business Impact
