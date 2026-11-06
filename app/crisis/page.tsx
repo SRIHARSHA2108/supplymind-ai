@@ -92,6 +92,19 @@ export default function CrisisPage() {
     };
   }, []);
 
+  useEffect(() => {
+    if (liveConnected) return;
+
+    const interval = window.setInterval(() => {
+      setSupplierDelay((value) => (value >= 10 ? 6 : value + 1));
+      setDemandSurge((value) => (value >= 55 ? 28 : value + 3));
+      setMachineDowntime((value) => (value >= 24 ? 8 : value + 4));
+      setLiveUpdatedAt(new Date().toISOString());
+    }, 5000);
+
+    return () => window.clearInterval(interval);
+  }, [liveConnected]);
+
   const simulation = useMemo(() => {
     const disruptionScore = Math.min(
       100,
@@ -241,10 +254,10 @@ export default function CrisisPage() {
                   className={
                     liveConnected
                       ? "bg-emerald-500/10 text-emerald-700"
-                      : "bg-slate-100 text-slate-600"
+                      : "bg-cyan-400/10 text-cyan-700"
                   }
                 >
-                  {liveConnected ? "Live feed connected" : "Simulation mode"}
+                  {liveConnected ? "Live feed connected" : "Live demo stream"}
                 </Badge>
               </div>
             </CardHeader>
@@ -603,7 +616,9 @@ function TwinSnapshot({
           <p className="mt-1 text-xs text-slate-500">
             {liveConnected && liveUpdatedAt
               ? `Updated ${new Date(liveUpdatedAt).toLocaleTimeString()}`
-              : "Using local scenario values"}
+              : liveUpdatedAt
+              ? `Demo updated ${new Date(liveUpdatedAt).toLocaleTimeString()}`
+              : "Starting live demo stream"}
           </p>
         </div>
       </div>
