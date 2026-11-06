@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import DashboardShell from "@/components/layout/dashboard-shell";
+import { createClient } from "@/lib/supabase/client";
 import {
   Card,
   CardContent,
@@ -33,6 +34,63 @@ export default function CrisisPage() {
   const [productionAvailability, setProductionAvailability] =
     useState(88);
   const [machineDowntime, setMachineDowntime] = useState(8);
+  const [liveConnected, setLiveConnected] = useState(false);
+  const [liveUpdatedAt, setLiveUpdatedAt] = useState<string | null>(null);
+  const [aiRecommendation, setAiRecommendation] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError] = useState("");
+
+  useEffect(() => {
+    let channel: ReturnType<ReturnType<typeof createClient>["channel"]> | undefined;
+
+    const applyLiveState = (state: Record<string, unknown> | null) => {
+      if (!state) return;
+
+      const numberValue = (key: string, fallback: number) =>
+        typeof state[key] === "number" ? state[key] : fallback;
+
+      setSupplierDelay(numberValue("supplier_delay", 6));
+      setInventoryBuffer(numberValue("inventory_buffer", 42));
+      setDemandSurge(numberValue("demand_surge", 28));
+      setTransportCapacity(numberValue("transport_capacity", 74));
+      setProductionAvailability(numberValue("production_availability", 88));
+      setMachineDowntime(numberValue("machine_downtime", 8));
+      setLiveUpdatedAt(
+        typeof state.updated_at === "string" ? state.updated_at : new Date().toISOString()
+      );
+    };
+
+    async function connectLiveState() {
+      try {
+        const response = await fetch("/api/factory-state", { cache: "no-store" });
+        const result = await response.json();
+        applyLiveState(result.state);
+
+        const supabase = createClient();
+        channel = supabase
+          .channel("factory-state-live")
+          .on(
+            "postgres_changes",
+            { event: "*", schema: "public", table: "factory_state" },
+            (payload) => {
+              applyLiveState(payload.new as Record<string, unknown>);
+              setLiveConnected(true);
+            }
+          )
+          .subscribe((status) => setLiveConnected(status === "SUBSCRIBED"));
+      } catch {
+        setLiveConnected(false);
+      }
+    }
+
+    connectLiveState();
+
+    return () => {
+      if (channel) {
+        createClient().removeChannel(channel);
+      }
+    };
+  }, []);
 
   const simulation = useMemo(() => {
     const disruptionScore = Math.min(
@@ -126,6 +184,35 @@ export default function CrisisPage() {
     machineDowntime,
   ]);
 
+  async function requestAiRecommendation() {
+    setAiLoading(true);
+    setAiError("");
+
+    try {
+      const response = await fetch("/api/nvidia/recommendation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          supplierDelay,
+          inventoryBuffer,
+          demandSurge,
+          transportCapacity,
+          productionAvailability,
+          machineDowntime,
+          ...simulation,
+        }),
+      });
+      const result = await response.json();
+
+      if (!response.ok) throw new Error(result.error ?? "AI analysis failed.");
+      setAiRecommendation(result.recommendation ?? "No recommendation returned.");
+    } catch (error) {
+      setAiError(error instanceof Error ? error.message : "AI analysis failed.");
+    } finally {
+      setAiLoading(false);
+    }
+  }
+
   return (
     <DashboardShell>
       <div className="space-y-8">
@@ -148,7 +235,18 @@ export default function CrisisPage() {
         <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
           <Card className="border-slate-200 bg-white">
             <CardHeader>
-              <CardTitle>Scenario Controls</CardTitle>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <CardTitle>Scenario Controls</CardTitle>
+                <Badge
+                  className={
+                    liveConnected
+                      ? "bg-emerald-500/10 text-emerald-700"
+                      : "bg-slate-100 text-slate-600"
+                  }
+                >
+                  {liveConnected ? "Live feed connected" : "Simulation mode"}
+                </Badge>
+              </div>
             </CardHeader>
 
             <CardContent className="space-y-7">
@@ -299,7 +397,36 @@ export default function CrisisPage() {
                 supplierCoverage={simulation.supplierCoverage}
                 lineOutput={simulation.lineOutput}
                 fulfillment={simulation.fulfillment}
+                liveConnected={liveConnected}
+                liveUpdatedAt={liveUpdatedAt}
               />
+
+              <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-4 sm:p-5">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-cyan-700">
+                      NVIDIA AI analysis
+                    </p>
+                    <p className="mt-1 text-sm text-slate-700">
+                      Generate a recommendation from the current live twin state.
+                    </p>
+                  </div>
+                  <Button
+                    onClick={requestAiRecommendation}
+                    disabled={aiLoading}
+                    className="bg-cyan-400 text-black hover:bg-cyan-300"
+                  >
+                    {aiLoading ? "Analyzing..." : "Analyze live state"}
+                  </Button>
+                </div>
+
+                {aiError && <p className="mt-3 text-sm text-red-700">{aiError}</p>}
+                {aiRecommendation && (
+                  <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-slate-700">
+                    {aiRecommendation}
+                  </p>
+                )}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -425,6 +552,8 @@ function TwinSnapshot({
   supplierCoverage,
   lineOutput,
   fulfillment,
+  liveConnected,
+  liveUpdatedAt,
 }: {
   inventoryRunway: number;
   inventoryUnits: number;
@@ -432,6 +561,8 @@ function TwinSnapshot({
   supplierCoverage: number;
   lineOutput: number;
   fulfillment: number;
+  liveConnected: boolean;
+  liveUpdatedAt: string | null;
 }) {
   const nodes = [
     {
@@ -465,9 +596,16 @@ function TwinSnapshot({
             Inventory and flow health under the current scenario.
           </p>
         </div>
-        <p className="text-sm font-semibold text-slate-900">
-          {inventoryRunway} days of runway
-        </p>
+        <div className="text-left sm:text-right">
+          <p className="text-sm font-semibold text-slate-900">
+            {inventoryRunway} days of runway
+          </p>
+          <p className="mt-1 text-xs text-slate-500">
+            {liveConnected && liveUpdatedAt
+              ? `Updated ${new Date(liveUpdatedAt).toLocaleTimeString()}`
+              : "Using local scenario values"}
+          </p>
+        </div>
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
