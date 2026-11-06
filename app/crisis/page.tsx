@@ -36,9 +36,6 @@ export default function CrisisPage() {
   const [machineDowntime, setMachineDowntime] = useState(8);
   const [liveConnected, setLiveConnected] = useState(false);
   const [liveUpdatedAt, setLiveUpdatedAt] = useState<string | null>(null);
-  const [aiRecommendation, setAiRecommendation] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiError, setAiError] = useState("");
 
   useEffect(() => {
     let channel: ReturnType<ReturnType<typeof createClient>["channel"]> | undefined;
@@ -196,35 +193,6 @@ export default function CrisisPage() {
     productionAvailability,
     machineDowntime,
   ]);
-
-  async function requestAiRecommendation() {
-    setAiLoading(true);
-    setAiError("");
-
-    try {
-      const response = await fetch("/api/nvidia/recommendation", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          supplierDelay,
-          inventoryBuffer,
-          demandSurge,
-          transportCapacity,
-          productionAvailability,
-          machineDowntime,
-          ...simulation,
-        }),
-      });
-      const result = await response.json();
-
-      if (!response.ok) throw new Error(result.error ?? "AI analysis failed.");
-      setAiRecommendation(result.recommendation ?? "No recommendation returned.");
-    } catch (error) {
-      setAiError(error instanceof Error ? error.message : "AI analysis failed.");
-    } finally {
-      setAiLoading(false);
-    }
-  }
 
   return (
     <DashboardShell>
@@ -414,32 +382,6 @@ export default function CrisisPage() {
                 liveUpdatedAt={liveUpdatedAt}
               />
 
-              <div className="mt-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-4 sm:p-5">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div>
-                    <p className="text-xs uppercase tracking-wider text-cyan-700">
-                      NVIDIA AI analysis
-                    </p>
-                    <p className="mt-1 text-sm text-slate-700">
-                      Generate a recommendation from the current live twin state.
-                    </p>
-                  </div>
-                  <Button
-                    onClick={requestAiRecommendation}
-                    disabled={aiLoading}
-                    className="bg-cyan-400 text-black hover:bg-cyan-300"
-                  >
-                    {aiLoading ? "Analyzing..." : "Analyze live state"}
-                  </Button>
-                </div>
-
-                {aiError && <p className="mt-3 text-sm text-red-700">{aiError}</p>}
-                {aiRecommendation && (
-                  <p className="mt-4 whitespace-pre-wrap text-sm leading-6 text-slate-700">
-                    {aiRecommendation}
-                  </p>
-                )}
-              </div>
             </CardContent>
           </Card>
         </div>
