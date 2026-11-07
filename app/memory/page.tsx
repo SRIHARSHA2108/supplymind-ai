@@ -47,7 +47,12 @@ export default function MemoryPage() {
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [memorySource, setMemorySource] = useState<"live" | "demo">("live");
   const [searchTerm, setSearchTerm] = useState("");
+  const [hindsight, setHindsight] = useState<{ configured: boolean; loading: boolean; text?: string; results?: Array<{ id?: string; text?: string; type?: string }>; error?: string }>({ configured: false, loading: true });
+  const [newMemory, setNewMemory] = useState("");
+  const [savingMemory, setSavingMemory] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     async function loadIncidents() {
@@ -68,6 +73,7 @@ export default function MemoryPage() {
         }
 
         setIncidents(result.incidents ?? []);
+        setMemorySource(result.source === "demo" ? "demo" : "live");
       } catch (error) {
         setError(
           error instanceof Error
@@ -80,6 +86,22 @@ export default function MemoryPage() {
     }
 
     loadIncidents();
+
+    async function recallWithHindsight() {
+      try {
+        const response = await fetch("/api/hindsight", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ operation: "recall", query: "What supplier delays, inventory shortages, and recovery strategies have worked in our factory operations?" }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || "Hindsight is unavailable.");
+        setHindsight({ configured: true, loading: false, results: result.results ?? [], text: result.text });
+      } catch (error) {
+        setHindsight({ configured: false, loading: false, error: error instanceof Error ? error.message : "Hindsight is unavailable." });
+      }
+    }
+    recallWithHindsight();
   }, []);
 
   const filteredIncidents = incidents.filter((incident) => {
@@ -98,6 +120,23 @@ export default function MemoryPage() {
     return searchableText.includes(searchTerm.toLowerCase());
   });
 
+  async function saveMemory() {
+    if (!newMemory.trim()) return;
+    setSavingMemory(true);
+    setSaveMessage("");
+    try {
+      const response = await fetch("/api/hindsight", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ operation: "retain", content: newMemory.trim(), context: "Supply chain operational incident recorded from SupplyMind Memory Atlas." }) });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Unable to save memory.");
+      setNewMemory("");
+      setSaveMessage("Memory saved to Hindsight. It can now be recalled in future scenarios.");
+    } catch (error) {
+      setSaveMessage(error instanceof Error ? error.message : "Unable to save memory.");
+    } finally {
+      setSavingMemory(false);
+    }
+  }
+
   return (
     <DashboardShell>
       <div className="space-y-8">
@@ -115,6 +154,11 @@ export default function MemoryPage() {
             outcome. SupplyMind uses historical incidents to improve future
             recommendations.
           </p>
+          {memorySource === "demo" && (
+            <p className="mt-3 text-xs text-amber-700">
+              Supabase is not connected yet, so incident history is in demo mode. Hindsight will still connect separately when configured.
+            </p>
+          )}
         </div>
 
         <Card className="border-violet-500/20 bg-gradient-to-br from-violet-500/10 via-white to-cyan-400/5">
@@ -202,6 +246,51 @@ export default function MemoryPage() {
                 </Button>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="border-cyan-400/20 bg-white">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Badge className="border-cyan-400/30 bg-cyan-400/10 text-cyan-700">Hindsight memory</Badge>
+                  <span className={`text-xs ${hindsight.configured ? "text-emerald-600" : "text-amber-700"}`}>
+                    {hindsight.loading ? "Checking live memory…" : hindsight.configured ? "Connected · recall active" : "Not connected"}
+                  </span>
+                </div>
+                <h2 className="mt-3 text-lg font-semibold text-slate-900">What the system has learned</h2>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">Hindsight searches the operations memory bank for prior incidents, then surfaces evidence before a new recommendation is made.</p>
+              </div>
+              <BrainCircuit className="h-6 w-6 text-cyan-600" />
+            </div>
+            {hindsight.loading && <p className="mt-5 text-sm text-slate-500">Recalling relevant supplier and inventory experiences…</p>}
+            {!hindsight.loading && hindsight.error && <p className="mt-5 rounded-xl bg-amber-50 p-3 text-sm text-amber-800">{hindsight.error}</p>}
+            {!hindsight.loading && hindsight.configured && hindsight.text && <p className="mt-5 rounded-xl bg-cyan-50 p-4 text-sm leading-6 text-slate-700">{hindsight.text}</p>}
+            {!hindsight.loading && hindsight.configured && hindsight.results && hindsight.results.length > 0 && (
+              <div className="mt-5 grid gap-3 md:grid-cols-2">
+                {hindsight.results.slice(0, 4).map((memory, index) => <div key={memory.id || index} className="rounded-xl border border-slate-200 bg-slate-50 p-4"><p className="text-[11px] font-semibold uppercase tracking-wider text-cyan-700">{memory.type || "experience"}</p><p className="mt-2 text-sm leading-6 text-slate-700">{memory.text}</p></div>)}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border-slate-200 bg-white">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <Badge className="border-violet-400/30 bg-violet-400/10 text-violet-700">Teach the memory</Badge>
+                <h2 className="mt-3 text-lg font-semibold text-slate-900">Add an operational experience</h2>
+                <p className="mt-1 max-w-2xl text-sm leading-6 text-slate-600">Record a disruption and its outcome. Hindsight will process it and use it when a similar scenario appears later.</p>
+              </div>
+              <History className="h-6 w-6 text-violet-600" />
+            </div>
+            <textarea value={newMemory} onChange={(event) => setNewMemory(event.target.value)} placeholder="Example: Supplier A delayed Component X by 6 days. We redirected 30% of demand to Supplier B and avoided a production stoppage." className="mt-5 min-h-28 w-full rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 text-slate-900 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" />
+            <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs text-slate-500">Do not add confidential personal information.</p>
+              <Button onClick={saveMemory} disabled={savingMemory || !newMemory.trim()} className="bg-cyan-400 text-black hover:bg-cyan-300">{savingMemory ? "Saving memory…" : "Save to Hindsight"}</Button>
+            </div>
+            {saveMessage && <p className="mt-3 rounded-xl bg-slate-50 p-3 text-sm text-slate-700">{saveMessage}</p>}
           </CardContent>
         </Card>
 

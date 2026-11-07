@@ -61,9 +61,18 @@ cp .env.example .env.local
 ```text
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+HINDSIGHT_API_KEY=your_hindsight_api_key
+HINDSIGHT_BANK_ID=supplymind-operations
+HINDSIGHT_BASE_URL=https://api.hindsight.vectorize.io
 ```
 
 The app remains usable with local sample/simulation behavior when Supabase is not configured.
+
+### Hindsight memory loop
+
+Memory Atlas calls Hindsight's server-side `recall` operation to retrieve prior supplier delays, inventory shortages, and recovery outcomes. Operational events can be stored with `retain`, then the current scenario recalls relevant experiences before a decision is made. The browser never receives the Hindsight key.
+
+The production Vercel environment is wired to Hindsight. Hindsight Cloud requires an available credit balance to process hosted API requests; when the balance is empty, the app reports the service state instead of pretending that live memory was retrieved. For a zero-cost setup, use the built-in demo/fallback mode or run Hindsight locally with a local model.
 
 ## How real-time updates work
 
