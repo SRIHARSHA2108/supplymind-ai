@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   Building2,
   Factory,
-  Package,
   Truck,
   Users,
   Warehouse,

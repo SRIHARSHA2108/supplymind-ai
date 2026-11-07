@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SupplyMind AI
 
-## Getting Started
+SupplyMind AI is a responsive supply-chain intelligence cockpit for teams that need to understand operational risk before it becomes a production or customer problem.
 
-First, run the development server:
+The product combines risk monitoring, demand forecasting, organizational memory, customer signals, sustainability analysis, and a what-if factory Digital Twin in one friendly dashboard.
+
+## What the app includes
+
+- **Command Center** — high-level production, inventory, logistics, customer, and resilience health.
+- **Risk Intelligence** — prioritized supplier, inventory, production, and logistics risks.
+- **Memory Atlas** — searchable organizational memory for incidents, decisions, and outcomes.
+- **Crisis Studio / What-if Digital Twin** — change supplier delay, inventory buffer, demand, transport, production, and machine downtime to see projected impact.
+- **Customer Signals** — connect service complaints and sentiment to operational risks.
+- **Decision Hub** — review recommendations, approve or reject actions, and inspect decision history.
+- **Smart Forecast** — explore demand trends and stockout countdowns.
+- **Sustainability** — compare sourcing decisions by cost, distance, emissions, and efficiency.
+- **Responsive themes** — light and dark themes with a persistent theme toggle in the top bar.
+
+## Run locally
+
+Requirements: Node.js 20+ and npm.
 
 ```bash
+git clone https://github.com/SRIHARSHA2108/supplymind-ai.git
+cd supplymind-ai
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Useful checks:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+Copy the example file and add your Supabase project values locally:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+cp .env.example .env.local
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```text
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
 
-## Deploy on Vercel
+The app remains usable with local sample/simulation behavior when Supabase is not configured.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Optional live Digital Twin feed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Crisis Studio can subscribe to a Supabase Realtime table named `factory_state`. To create the table and enable its Realtime publication, run [`supabase/factory-state.sql`](supabase/factory-state.sql) in the Supabase SQL Editor.
+
+The expected row is `id = 'current'` with these fields:
+
+```text
+supplier_delay
+inventory_buffer
+demand_surge
+transport_capacity
+production_availability
+machine_downtime
+updated_at
+```
+
+Your ERP, IoT service, or operations tool can update that row. Connected Crisis Studio sessions will receive the new state without a page refresh.
+
+## Project structure
+
+```text
+app/                     Next.js routes and dashboard pages
+components/              Shared layout, theme, and UI components
+lib/supabase/             Supabase browser client
+supabase/                 Database and Realtime setup SQL
+public/                   Static assets
+```
+
+## Deployment
+
+The project is configured for Vercel:
+
+```bash
+npx vercel --prod
+```
+
+For a production deployment, add the Supabase environment variables in **Vercel → Project Settings → Environment Variables**, select **Production**, save, and redeploy.
+
+## Design direction
+
+SupplyMind uses a calm light canvas with cyan and violet intelligence accents. Cards, badges, and charts use color to communicate status—not decoration alone. The theme toggle provides a dark workspace for low-light operations while preserving the same visual hierarchy and contrast.

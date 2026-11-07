@@ -2,6 +2,7 @@ import { Bell, Search, ShieldCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { MobileNav } from "./sidebar";
+import ThemeToggle from "@/components/theme-toggle";
 
 export default function Topbar() {
   return (
@@ -24,6 +25,8 @@ export default function Topbar() {
           <ShieldCheck className="h-4 w-4" />
           System Healthy
         </div>
+
+        <ThemeToggle />
 
         <button className="rounded-xl border border-slate-200 bg-slate-100 p-2 text-slate-600 transition hover:text-slate-900">
           <Bell className="h-5 w-5" />
