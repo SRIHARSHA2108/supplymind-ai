@@ -1,18 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bell, Search, ShieldCheck, AlertTriangle, CheckCircle2, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { MobileNav } from "./sidebar";
 import ThemeToggle from "@/components/theme-toggle";
+import { createClient as createSupabaseClient } from "@/lib/supabase/client";
 
 export default function Topbar() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState([
-    { id: 1, title: "Supplier A risk detected", text: "Component X coverage is below the safety threshold.", type: "warning" },
+    { id: 1, title: "Supplier A delay watch", text: "Possible 6-day delay for Component X. Review the Supply Chain Network.", type: "warning" },
     { id: 2, title: "Hindsight memory updated", text: "A new recovery outcome was saved to Memory Atlas.", type: "success" },
   ]);
+
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+    if (!url || !key) return;
+    try {
+      const supabase = createSupabaseClient();
+      const channel = supabase.channel("topbar-notifications").on("postgres_changes", { event: "UPDATE", schema: "public", table: "factory_state" }, (payload) => {
+        const delay = Number((payload.new as Record<string, number>).supplier_delay ?? 6);
+        if (delay >= 5) setNotifications((current) => [{ id: Date.now(), title: "Supplier delay risk updated", text: `Supplier A may be delayed by ${delay} days. Component X coverage needs attention.`, type: "warning" }, ...current.filter((item) => item.title !== "Supplier delay risk updated")]);
+      }).subscribe();
+      return () => { void supabase.removeChannel(channel); };
+    } catch { return; }
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-slate-200/80 bg-white/85 px-4 shadow-[0_8px_30px_-24px_rgba(15,23,42,0.5)] backdrop-blur-xl sm:px-6 lg:h-20">
