@@ -9,11 +9,10 @@ export async function GET() {
     if (!supabaseUrl || !supabaseKey) {
       return NextResponse.json(
         {
-          error: "Supabase environment variables are missing.",
+          incidents: [],
+          source: "demo",
         },
-        {
-          status: 500,
-        }
+        { status: 200 }
       );
     }
 
