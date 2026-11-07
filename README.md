@@ -169,6 +169,45 @@ If the badge says **Live demo stream**, the Supabase table or environment variab
 - **Vercel** — production hosting and deployments
 - **Recharts + Lucide React** — operational visualizations and consistent icons
 
+### Runtime architecture
+
+```text
+┌──────────────────────┐      update       ┌────────────────────────┐
+│ ERP / IoT / Operator │ ────────────────→ │ Supabase factory_state │
+└──────────────────────┘                  └───────────┬────────────┘
+                                                      │ Realtime event
+                                  ┌───────────────────┼───────────────────┐
+                                  ↓                   ↓                   ↓
+                         ┌────────────────┐  ┌────────────────┐  ┌──────────────┐
+                         │ Crisis Studio │  │ Supply Network │  │ Notifications│
+                         │ Digital Twin  │  │ live topology  │  │ delay alerts │
+                         └───────┬────────┘  └────────────────┘  └──────────────┘
+                                 │ prediction + human decision
+                                 ↓
+                         ┌────────────────┐
+                         │ Decision Hub   │
+                         │ actual outcome │
+                         └───────┬────────┘
+                                 │ retain / recall
+                                 ↓
+                         ┌────────────────┐
+                         │ Hindsight      │
+                         │ memory engine  │
+                         └────────────────┘
+```
+
+### What is real time?
+
+| Flow | Live behavior |
+| --- | --- |
+| Factory state | Supabase Realtime broadcasts updates without refresh |
+| Network topology | Supplier delay, capacity, production, and demand signals update live |
+| Notifications | Delay-risk alerts are generated from incoming factory-state events |
+| Hindsight memory | Retain and recall requests complete immediately when an operator saves or searches |
+| Digital Twin | Scenario sliders recalculate impact immediately in the browser |
+
+The app labels the source honestly: **Live feed connected** means Supabase is receiving shared state; **Live demo stream** means local generated values are being used for demonstration.
+
 ```text
 ERP / IoT / operator event
           ↓
