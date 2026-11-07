@@ -68,6 +68,7 @@ export default function DecisionsPage() {
   const [savingOutcome, setSavingOutcome] = useState(false);
   const [predictionAccuracy, setPredictionAccuracy] = useState(91);
   const [learningScore, setLearningScore] = useState(89);
+  const [feedback, setFeedback] = useState("");
 
   function updateDecision(index: number, value: string) {
     setStatus((prev) => ({
@@ -283,6 +284,21 @@ export default function DecisionsPage() {
             <div className="mt-5 grid gap-3 rounded-2xl bg-slate-50 p-4 sm:grid-cols-3"><HistoryItem label="Predicted recovery" value="2.0 days" /><HistoryItem label="Confidence before" value="84%" /><HistoryItem label="Strategy" value="Shift 35% to Supplier B" /></div>
             <Button onClick={recordOutcome} disabled={savingOutcome || !outcome.recovery} className="mt-5 bg-cyan-400 text-black hover:bg-cyan-300">{savingOutcome ? "Evaluating and saving…" : "Evaluate outcome + update memory"}</Button>
             {evaluation && <p className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-800">{evaluation}</p>}
+          </CardContent>
+        </Card>
+
+        <Card className="border-violet-400/20 bg-gradient-to-br from-violet-50 via-white to-cyan-50">
+          <CardHeader>
+            <div className="flex items-center gap-2"><Sparkles className="h-5 w-5 text-violet-700" /><CardTitle>Decision evidence & counterfactual</CardTitle></div>
+            <p className="text-sm text-slate-600">See why this recommendation is trusted, and what happens if the team does nothing.</p>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-emerald-700">Approve strategy</p><p className="mt-3 text-2xl font-semibold text-slate-900">2 days</p><p className="mt-1 text-sm text-slate-600">Expected recovery · 12 hours production loss avoided</p></div>
+              <div className="rounded-2xl border border-red-200 bg-red-50 p-5"><p className="text-xs font-semibold uppercase tracking-wider text-red-700">Do nothing</p><p className="mt-3 text-2xl font-semibold text-slate-900">5+ days</p><p className="mt-1 text-sm text-slate-600">Expected recovery · 12 hours production loss at risk</p></div>
+            </div>
+            <div className="grid gap-3 rounded-2xl bg-white p-4 sm:grid-cols-3"><HistoryItem label="Historical match" value="87% similar" /><HistoryItem label="Past strategy success" value="91%" /><HistoryItem label="Evidence source" value="Hindsight experience" /></div>
+            <div><p className="text-sm font-medium text-slate-900">Human feedback</p><div className="mt-2 flex flex-wrap gap-2">{["Correct recommendation", "Too conservative", "Missing context"].map((item) => <Button key={item} type="button" variant="outline" onClick={() => setFeedback(item)} className={feedback === item ? "border-cyan-500 bg-cyan-50 text-cyan-800" : "border-slate-200"}>{item}</Button>)}</div>{feedback && <p className="mt-3 text-xs text-slate-500">Feedback recorded for the next learning update: {feedback}</p>}</div>
           </CardContent>
         </Card>
 
