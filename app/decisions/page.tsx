@@ -66,6 +66,8 @@ export default function DecisionsPage() {
   const [outcome, setOutcome] = useState({ delay: "", loss: "", recovery: "" });
   const [evaluation, setEvaluation] = useState<string | null>(null);
   const [savingOutcome, setSavingOutcome] = useState(false);
+  const [predictionAccuracy, setPredictionAccuracy] = useState(91);
+  const [learningScore, setLearningScore] = useState(89);
 
   function updateDecision(index: number, value: string) {
     setStatus((prev) => ({
@@ -88,6 +90,8 @@ export default function DecisionsPage() {
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Unable to save evaluation.");
       setEvaluation(`Prediction accuracy: ${accuracy}% · Strategy outcome: ${accuracy >= 80 ? "Successful" : "Needs review"} · Confidence updated: ${confidenceBefore}% → ${confidenceAfter}% · Memory saved`);
+      setPredictionAccuracy(accuracy);
+      setLearningScore(Math.round((accuracy + confidenceAfter) / 2));
     } catch (error) { setEvaluation(error instanceof Error ? error.message : "Unable to save evaluation."); }
     finally { setSavingOutcome(false); }
   }
@@ -113,8 +117,8 @@ export default function DecisionsPage() {
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
           <MetricCard title="Pending Decisions" value="3" />
           <MetricCard title="Approval Rate" value="82%" />
-          <MetricCard title="Prediction Accuracy" value="91%" />
-          <MetricCard title="Decision Learning Score" value="89" />
+          <MetricCard title="Prediction Accuracy" value={`${predictionAccuracy}%`} />
+          <MetricCard title="Decision Learning Score" value={`${learningScore}`} />
         </div>
 
         <Tabs defaultValue="recommended" className="space-y-5">
