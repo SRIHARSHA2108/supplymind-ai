@@ -9,6 +9,7 @@ import {
   FlaskConical,
   MessageSquareText,
   Workflow,
+  Network,
   LineChart,
   Leaf,
   Sparkles,
@@ -26,6 +27,7 @@ import {
 export const navItems = [
   { name: "Command Center", href: "/dashboard", icon: LayoutDashboard },
   { name: "Risk Intelligence", href: "/risk", icon: ShieldAlert },
+  { name: "Network Topology", href: "/network", icon: Network },
   { name: "Memory Atlas", href: "/memory", icon: BrainCircuit },
   { name: "Crisis Studio", href: "/crisis", icon: FlaskConical },
   { name: "Customer Signals", href: "/customer-signals", icon: MessageSquareText },

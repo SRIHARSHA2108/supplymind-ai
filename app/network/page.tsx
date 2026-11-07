@@ -1,0 +1,22 @@
+"use client";
+
+import { useState } from "react";
+import DashboardShell from "@/components/layout/dashboard-shell";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Network, Factory, Truck, Package, AlertTriangle, CheckCircle2 } from "lucide-react";
+
+const nodes = [
+  { id: "supplier-a", label: "Supplier A", x: 18, y: 26, status: "Risk", detail: "6-day delay exposure · Component X" },
+  { id: "supplier-b", label: "Supplier B", x: 18, y: 74, status: "Healthy", detail: "74% transport capacity available" },
+  { id: "factory", label: "Main Factory", x: 50, y: 50, status: "Operating", detail: "88% production availability" },
+  { id: "hub-1", label: "Hub 1", x: 82, y: 26, status: "Healthy", detail: "2-day recovery route" },
+  { id: "customers", label: "Customers", x: 82, y: 74, status: "Monitored", detail: "Demand surge: 28%" },
+];
+
+export default function NetworkPage() {
+  const [selected, setSelected] = useState(nodes[2]);
+  return <DashboardShell><div className="space-y-8"><div><Badge className="mb-3 border-cyan-400/20 bg-cyan-400/10 text-cyan-700">Supply network intelligence</Badge><h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">Network Topology</h1><p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">See how suppliers, facilities, logistics hubs, and customer demand connect. Select a node to inspect its live operational signal.</p></div>
+    <div className="grid gap-6 xl:grid-cols-[1fr_300px]"><Card className="overflow-hidden border-slate-200 bg-white"><CardHeader><div className="flex items-center justify-between"><CardTitle className="flex items-center gap-2"><Network className="h-5 w-5 text-cyan-700" />Star topology</CardTitle><Badge className="bg-emerald-100 text-emerald-700"><span className="mr-1 h-2 w-2 rounded-full bg-emerald-500" />Live topology</Badge></div></CardHeader><CardContent><div className="relative min-h-[440px] rounded-2xl bg-slate-50 p-3"><svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full" preserveAspectRatio="none"><line x1="50" y1="50" x2="18" y2="26" stroke="#cbd5e1" strokeWidth="0.6" /><line x1="50" y1="50" x2="18" y2="74" stroke="#cbd5e1" strokeWidth="0.6" /><line x1="50" y1="50" x2="82" y2="26" stroke="#cbd5e1" strokeWidth="0.6" /><line x1="50" y1="50" x2="82" y2="74" stroke="#cbd5e1" strokeWidth="0.6" /></svg>{nodes.map((node) => <button key={node.id} onClick={() => setSelected(node)} className={`absolute -translate-x-1/2 -translate-y-1/2 rounded-2xl border p-3 text-left shadow-sm transition hover:-translate-y-[calc(50%+3px)] ${node.id === selected.id ? "border-cyan-400 bg-cyan-50 ring-2 ring-cyan-400/20" : "border-slate-200 bg-white"}`} style={{ left: `${node.x}%`, top: `${node.y}%` }}><div className="flex items-center gap-2"><span className={`rounded-lg p-2 ${node.status === "Risk" ? "bg-red-100 text-red-700" : node.id === "factory" ? "bg-violet-100 text-violet-700" : "bg-emerald-100 text-emerald-700"}`}>{node.id.includes("supplier") ? <Package className="h-4 w-4" /> : node.id === "factory" ? <Factory className="h-4 w-4" /> : node.id === "hub-1" ? <Truck className="h-4 w-4" /> : <Network className="h-4 w-4" />}</span><span className="whitespace-nowrap text-xs font-semibold text-slate-900">{node.label}</span></div><p className="mt-2 text-[10px] text-slate-500">{node.status}</p></button>)}</div></CardContent></Card>
+      <Card className="border-slate-200 bg-white"><CardHeader><CardTitle>Node intelligence</CardTitle></CardHeader><CardContent><div className="rounded-2xl bg-slate-50 p-4"><div className="flex items-center gap-2">{selected.status === "Risk" ? <AlertTriangle className="h-5 w-5 text-red-600" /> : <CheckCircle2 className="h-5 w-5 text-emerald-600" />}<p className="font-semibold text-slate-900">{selected.label}</p></div><p className="mt-3 text-sm leading-6 text-slate-600">{selected.detail}</p><p className="mt-5 text-xs uppercase tracking-wider text-slate-500">Network role</p><p className="mt-1 text-sm text-slate-900">{selected.id === "factory" ? "Central production node" : "Connected edge node"}</p></div><div className="mt-4 rounded-xl border border-violet-200 bg-violet-50 p-4"><p className="text-xs font-semibold uppercase tracking-wider text-violet-700">Recommended action</p><p className="mt-2 text-sm leading-6 text-slate-700">Keep Supplier B as the fallback route while Supplier A remains under watch.</p></div></CardContent></Card></div></div></DashboardShell>;
+}
