@@ -1,8 +1,20 @@
 # SupplyMind AI
 
-SupplyMind AI is a responsive supply-chain intelligence cockpit for teams that need to understand operational risk before it becomes a production or customer problem.
+> **A living supply-chain intelligence cockpit that predicts disruption, explains the decision, learns from the outcome, and improves over time.**
+
+SupplyMind AI is a responsive supply-chain intelligence cockpit for teams that need to understand operational risk before it becomes a production or customer problem. It is designed as a closed learning cycle—not a one-time prediction.
 
 The product combines risk monitoring, demand forecasting, organizational memory, customer signals, sustainability analysis, and a what-if factory Digital Twin in one friendly dashboard.
+
+## Product story
+
+```text
+Live risk signal → Prediction → Recommendation → Human decision
+      → Actual outcome → Hindsight evaluation → Confidence update
+      → Memory saved → Better recommendation next time
+```
+
+Example: Supplier A may delay Component X by six days. SupplyMind recommends shifting 35% of demand to Supplier B. After the event, the operator records the actual delay and recovery time. Hindsight stores the result, so a future incident can reuse the evidence instead of starting from zero.
 
 ## See the product
 
@@ -29,6 +41,19 @@ Crisis Studio is the Digital Twin workspace. Move the scenario sliders and the p
 - **Smart Forecast** — explore demand trends and stockout countdowns.
 - **Sustainability** — compare sourcing decisions by cost, distance, emissions, and efficiency.
 - **Responsive themes** — light and dark themes with a persistent theme toggle in the top bar.
+- **Supply Chain Network** — a live star-topology view of suppliers, factory, logistics, and customers, with delay-risk signals and notifications.
+- **Closed-loop learning** — prediction-versus-actual evaluation, confidence updates, counterfactual comparison, and human feedback.
+
+## Judge-ready demo flow
+
+1. Open **Supply Chain Network** and show Supplier A's live delay-risk signal.
+2. Open **Crisis Studio** and change supplier delay or demand surge.
+3. Open **Decision Hub** and approve, reject, or simulate the proposed recovery.
+4. Enter the actual delay, production loss, and recovery time under **Hindsight Update**.
+5. Show prediction accuracy and confidence changing immediately.
+6. Open **Memory Atlas** and show the saved experience recalled by Hindsight.
+
+This demonstrates innovation, technical implementation, user experience, real-world impact, and the full Hindsight learning loop in one coherent story.
 
 ## Run locally
 
@@ -134,6 +159,25 @@ Your ERP, IoT service, or operations tool can update that row. Connected Crisis 
 4. Watch the open Crisis Studio tab. The slider values, Twin Snapshot, runway, production output, and fulfillment should change without a page refresh.
 
 If the badge says **Live demo stream**, the Supabase table or environment variables are not connected yet. That mode is intentional and keeps the demo usable while the live source is being configured.
+
+## Technology and architecture
+
+- **Next.js 16 + React 19 + TypeScript** — responsive application and server routes
+- **Tailwind CSS** — accessible responsive design system and themes
+- **Supabase** — factory-state persistence and Realtime broadcasts
+- **Hindsight Cloud** — retain, recall, and long-term operational memory
+- **Vercel** — production hosting and deployments
+- **Recharts + Lucide React** — operational visualizations and consistent icons
+
+```text
+ERP / IoT / operator event
+          ↓
+Supabase factory_state ── Realtime ──→ Crisis Studio + Network + Notifications
+          ↓
+Decision Hub prediction → human decision → actual outcome
+          ↓
+Hindsight retain → recall similar experiences → improve next decision
+```
 
 ## Project structure
 
