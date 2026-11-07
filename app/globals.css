@@ -126,5 +126,16 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+    background: #f8fafc;
+  }
+
+  ::selection {
+    background: oklch(0.91 0.11 195);
+    color: oklch(0.2 0.04 240);
+  }
+
+  body {
+    min-height: 100vh;
   }
 }

@@ -8,7 +8,7 @@ export default function DashboardShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white text-slate-900">
+    <div className="min-h-screen overflow-x-hidden bg-[radial-gradient(circle_at_top_right,_rgba(34,211,238,0.08),_transparent_32%),radial-gradient(circle_at_top_left,_rgba(139,92,246,0.06),_transparent_28%),_#f8fafc] text-slate-900">
       <div className="flex">
         <Sidebar />
 
